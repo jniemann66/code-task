@@ -10,7 +10,7 @@ It performs flight searches based on requests containing a combination of airlin
 
 ##Test Methodology
 
-This project was developed using as strict TDD methodology. No new functionality was added without first having an existing test written. Testing is done using Mocha and Chai.
+This project was developed using a strict TDD methodology. No new functionality was added without first having an existing test written. Testing is done using Mocha and Chai.
 The test suite can be run at any time using the **npm test** command
 
 ##installation
