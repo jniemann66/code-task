@@ -6,7 +6,7 @@ This express server accepts http requests from browsers on port 3000, and subseq
 
 It performs flight searches based on requests containing a combination of airlines and dates. In order to achieve this, it asynchronously sends multiple single-flight-search requests to the Locomote code-task API, and returns the combined results.
 
-(Consolidating single flight searches into a "bulk" search is necessary because most browsers can only handle around 6 concurrent http connections to the same host. If the browser was to make these invividual requests directly, With 6 airlines and 5 days, this would have amounted to 30 ajax requests from the browser each time the user clicked "search", which would not be acceptable).
+(Consolidating single flight searches into a "bulk" search is necessary because most browsers can only handle around 6 concurrent http connections to the same host. If the browser was to make these individual requests directly, With 6 airlines and 5 days, this would have amounted to 30 ajax requests from the browser each time the user clicked "search", which would not be acceptable).
 
 ##Test Methodology
 
