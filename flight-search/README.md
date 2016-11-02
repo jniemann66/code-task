@@ -5,7 +5,7 @@
 
 **flight-search** is a front-end for the locomote Code-Task assignment.
 
-It allows the user to select an origin and destination for a one-way flight, and a desired travel date.
+It allows the user to search for one-way airline flights by selecting an origin and destination, and a desired travel date.
 
 ##Live Demo
 [http://52.62.255.103:9999](http://52.62.255.103:9999 "Live Demo")
@@ -29,6 +29,13 @@ eg **today, tomorrow, tomorrow+1, tomorrow+2, tomorrow+3**
 Once the results are displayed, the user can select their desired flight, which takes them to confirmation page for a mock approval process.
 
 Bootstrap is used to make the page responsive and to provide validation feedback (red / green borders) for the input fields
+
+A sort facility is also included. Results can be sorted by Airline, Departure Time, Flight Duration, or Price (default).
+
+The sort may also be ascending (default) or descending. The sort order can be changed as many times as desired for up to 5-minutes after
+
+the last search results were obtained, after which the results are considered to have expired, and a full search will be triggered on subsequent sort operations.
+
 
 ##Coding and methodology
 
@@ -57,14 +64,13 @@ Please ensure that this points to the node server back-end.
 ##Serving flight-search
 for development purposes, flight search can be launched directly from the local computer's filesystem by opening **index.html** in the browser. However, this is not recommended. Testing should be done from an actual http server.
 
-Of course, any web server can be used. For example, using the node server '[http-server](https://www.npmjs.com/package/http-server)':
+Of course, any web server can be used. 
+
+For example, to server the page on port 9000 using the node server '[http-server](https://www.npmjs.com/package/http-server)':
 
 **npm install http-server -g**
 
 **cd flight-search && http-server -p 9000**
-
-would serve flight-search on port 9000
-
 
 ##Additional considerations and to-do's
 
@@ -72,7 +78,7 @@ would serve flight-search on port 9000
 * formatting for results on small screens (phones) still needs some tweaking
 * Scripted testing using Selenium or Phantom.js should be implemented
 * There are still a couple of issues in safari, as noted in the pdf referenced above
-* A callout showing the cheapest flight might be helpful to the user
+* A callout showing the cheapest flight might be very helpful to the use
 
 
 
