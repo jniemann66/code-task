@@ -322,7 +322,6 @@
 
     var today = moment().format('YYYY-MM-DD');
     
-    console.log(targetDate);
     var diff = moment.duration(targetDate.diff(today)).asDays(); // determine difference between target date and today
     
     if(diff < 0) { 
