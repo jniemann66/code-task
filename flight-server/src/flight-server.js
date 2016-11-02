@@ -8,7 +8,7 @@ var morgan = require('morgan');
 var app = express();
 
 app.use(cors()); // allow CORS
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 var server;
 
