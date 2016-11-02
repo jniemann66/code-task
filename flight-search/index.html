@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <title>Flight Search</title>
+  <link crossorigin="anonymous" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" rel="stylesheet">
+  <link href="/styles/style.css" rel="stylesheet" type="text/css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  
+  <!-- jQueryUI custom build: datepicker autocomplete-->
+  <link href="scripts/jquery-ui-1.12.1.custom/jquery-ui.min.css" rel="stylesheet" type="text/css">
+  <script src="scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="scripts/flight-search.js"></script>
+</head>
+
+<body id="root">
+  <h1>Flight Search</h1>
+  <h4>(one way)</h4>
+  <div class="container-fluid">
+
+    <!-- Search form: -->
+    <div class="container searchform">
+      <div class="form-inline">
+        <div class="form-group col-sm-4">
+          <label class="form-control-label" for="from">From:</label> 
+          <input autocomplete="off" class="form-control input-sm form-control-inline" id="from" list="origins" name="from" placeholder="enter city name" type="text"> 
+          <datalist id="origins">
+            <!-- (script dynamically puts options in here) -->
+          </datalist>
+        </div>
+        <div class="form-group col-sm-4">
+          <label class="form-control-label" for="to">To:</label> 
+          <input autocomplete="off" class="form-control input-sm form-control-inline" id="to" list="destinations" name="to" placeholder="enter city name" type="text">
+          <datalist id="destinations">
+            <!-- (script dynamically puts options in here) -->
+          </datalist>
+        </div>
+        <div class="form-group col-sm-3">
+          <label class="form-control-label" for="date">Date:</label>
+          <input class="form-control input-sm form-control-inline" id="date" placeholder="enter date (DD-MMM-YYYY format)" type="date">
+        </div>
+        <div class="form-group col-sm-1">
+          <label for="search">&#xA0;</label> 
+          <button class="btn btn-sm btn-success" id="search" type="button"><span class="glyphicon glyphicon-plane"></span>Search</button>
+        </div>
+      </div>
+      <p>&#xA0;</p>
+    </div>
+    
+    <!-- Search results: -->
+    <div class="container resultsbox" id="resultsbox">
+      <div class="sort-options">
+        <p>sort by:</p>
+        <input class="sort-buttons" id="sort-airline" name="sort-mode" type="radio" value="airline">Airline 
+        <input class="sort-buttons" id="sort-departure-time" name="sort-mode" type="radio" value="departure-time">Departure Time
+        <input class="sort-buttons" id="sort-duration" name="sort-mode" type="radio" value="duration">Duration
+        <input checked class="sort-buttons" id="sort-price" name="sort-mode" type="radio" value="price">Price
+        <br>
+        <input class="sort-buttons" id="descending" name="sort-direction" type="checkbox">Reverse Order
+      </div>
+      <ul class="tabs">
+        <li style="list-style: none; display: inline">
+          <p>results:</p>
+        </li>
+        <li class="labels">
+          <label for="tab1" id="label1">tab 1</label>
+          <label for="tab2" id="label2">tab 2</label>
+          <label for="tab3" id="label3">tab 3</label>
+          <label for="tab4" id="label4">tab 4</label>
+          <label for="tab5" id="label5">tab 5</label>
+        </li>
+        <li>
+          <input id="tab1" name="tabs" type="radio" value="1">
+          <div class="tab-content" id="tab-content1">
+            <h3 id="results-heading1">Tab 1</h3>
+          </div>
+        </li>
+        <li>
+          <input id="tab2" name="tabs" type="radio" value="2">
+          <div class="tab-content" id="tab-content2">
+            <h3 id="results-heading2">Tab 2</h3>
+          </div>
+        </li>
+        <li>
+          <input checked id="tab3" name="tabs" type="radio" value="3">
+          <div class="tab-content" id="tab-content3">
+            <h3 id="results-heading3">Tab 3</h3>
+          </div>
+        </li>
+        <li>
+          <input id="tab4" name="tabs" type="radio" value="4">
+          <div class="tab-content" id="tab-content4">
+            <h3 id="results-heading4">Tab 4</h3>
+          </div>
+        </li>
+        <li>
+          <input id="tab5" name="tabs" type="radio" value="5">
+          <div class="tab-content" id="tab-content5">
+            <h3 id="results-heading5">Tab 5</h3>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

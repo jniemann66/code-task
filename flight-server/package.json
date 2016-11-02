@@ -1,0 +1,26 @@
+{
+  "name": "flight-server",
+  "version": "1.0.0",
+  "description": "back-end server for flight search application",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha -R spec -c",
+    "start": "node ./src/start-server.js",
+    "stop": "node ./src/stop-server.js"
+  },
+  "author": "Judd Niemann",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.1",
+    "express": "4.14.0",
+    "moment": "^2.15.1"
+  },
+  "devDependencies": {
+    "chai": "3.5.0",
+    "mocha": "3.1.2",
+    "superagent": "2.3.0"
+  }
+}

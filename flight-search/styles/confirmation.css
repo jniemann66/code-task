@@ -1,0 +1,25 @@
+
+div {
+  background-color: #eeeeee;
+  text-align: center;
+}
+
+#main-heading {
+  padding-bottom: 30px;
+}
+
+table {
+  margin: auto;
+  min-width: 50%;
+  border-collapse: collapse;
+  margin-bottom: 40px;
+}
+
+td {
+  border: 1px solid black;
+}
+
+th {
+  border: 1px solid black;
+  background-color: lightgrey;
+}

@@ -1,0 +1,202 @@
+body {
+  font-size: 18px;
+  line-height: 32px;
+  word-wrap: break-word;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  font-size: 200%;
+  text-align: center;
+  line-height: 1.5;
+  color: #000;
+}
+
+h4 {
+   text-align: center;
+}
+
+p {
+  font-size: 80%;
+}
+
+#root-container {
+    padding: 0px;
+}
+
+.form-control-inline {
+/* for making input boxes use full width of form-control */
+  min-width: 100%;
+  display: inline;
+}
+
+.centered {
+  horizontal-align: middle;
+  display: block;
+  margin: auto;
+}
+
+.sort-options {
+  float: right;
+  display: inline;
+  font-size: 80%;
+}
+
+.sort-buttons {
+  display: inline;
+}
+
+.searchform {
+  background-color: #eee;
+}
+
+.resultsbox {
+  background-color: #eee;
+}
+
+input, label, button {
+  display: block;
+}
+
+@-webkit-keyframes glowing {
+  0% {
+    background-color: #347a05;
+    box-shadow: 0 0 3px #00B200;
+  }
+
+  50% {
+    background-color: #0F0;
+    box-shadow: 0 0 40px #0F0;
+  }
+
+  100% {
+    background-color: #347a05;
+    box-shadow: 0 0 3px #00B200;
+  }
+}
+
+@-moz-keyframes glowing {
+  0% {
+    background-color: #347a05;
+    box-shadow: 0 0 3px #00B200;
+  }
+
+  50% {
+    background-color: #0F0;
+    box-shadow: 0 0 40px #0F0;
+  }
+
+  100% {
+    background-color: #347a05;
+    box-shadow: 0 0 3px #00B200;
+  }
+}
+
+@-o-keyframes glowing {
+  0% {
+    background-color: #347a05;
+    box-shadow: 0 0 3px #00B200;
+  }
+
+  50% {
+    background-color: #0F0;
+    box-shadow: 0 0 40px #0F0;
+  }
+
+  100% {
+    background-color: #347a05;
+    box-shadow: 0 0 3px #00B200;
+  }
+}
+
+@keyframes glowing {
+  0% {
+    background-color: #347a05;
+    box-shadow: 0 0 3px #00B200;
+  }
+
+  50% {
+    background-color: #0F0;
+    box-shadow: 0 0 40px #0F0;
+  }
+
+  100% {
+    background-color: #347a05;
+    box-shadow: 0 0 3px #00B200;
+  }
+}
+
+.tabs {
+  list-style: none;
+  padding: 0;
+  display: none;
+}
+
+.tabs li {
+  display: block;
+}
+
+.labels:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.tabs label {
+  display: inline-block;
+  float: left;
+  margin-left: 4px;
+  padding: 4px 20px;
+  color: #000;
+  font-size: 80%;
+  font-weight: 400;
+  background: #d3d3d3;
+  border-color: #000;
+  border-width: 3px;
+  border-radius: 4px;
+}
+
+.tabs label:hover {
+  background: #3498db;
+}
+
+.tab-content {
+  display: none;
+  width: 100%;
+  padding: 15px;
+  font-size: 80%;
+  border: 1px solid #ccc;
+  border-top: 10px solid #08C;
+  background-color: #fff;
+}
+
+.tab-content table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.tab-content th {
+  font-size: 100%;
+  background-color: lightgray;
+}
+
+.tab-content td {
+  border-bottom: thin solid #444;
+}
+
+.tabs input[type=radio] {
+  display: none;
+}
+
+[id^=tab]:checked ~ div[id^=tab-content] { 
+  display: block;
+}
+
+[id^=tab]:checked ~ [id^=label] {
+  background: #08C;
+  color: #fff;
+}
+
+.btn:focus {
+  outline: none; /* remove weird blue border around buttons */
+}
