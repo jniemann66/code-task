@@ -94,7 +94,7 @@ Locomote API syntax has a single airline as a URL parameter, followed by from, t
 
 ##Additional Considerations and To-do's:
 
-* need to add logging ([Winston](https://github.com/winstonjs/winston) / [Morgan](https://github.com/expressjs/morgan) etc)
+* need to refine logging ([Winston](https://github.com/winstonjs/winston) / [Morgan](https://github.com/expressjs/morgan) etc)
 * In production environments, needs a process manager, such as [pm2](http://pm2.keymetrics.io/)
 * Consider adding a build process (webpack) with minification etc
 
