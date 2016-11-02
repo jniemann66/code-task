@@ -77,6 +77,9 @@ For example, to serve the page on port 9000 using the node server '[http-server]
 * Scripted testing using Selenium or Phantom.js should be implemented
 * There are still a couple of issues in safari, as noted in the pdf referenced above
 * A callout showing the cheapest flight might be very helpful for the user
+* todo: package installation script for front-end server
+* todo: improve aesthetics
+* todo: https transport ?
 
 
 

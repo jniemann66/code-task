@@ -85,6 +85,7 @@ identical to the Locomote API version. Returns an array of airline objects conta
 
 * Submits multiple flight search requests to the Locomote API on behalf of the requestor, and consolidates the results.
 
+dates are expected to be in the format YYYY-MM-DD
 
 *Note: I spent some time trying to decide what the correct syntax for this should be. The 
 Locomote API syntax has a single airline as a URL parameter, followed by from, to, and date represented as query parameters. Normally, the path component identifies a resource, and the query parameters are for retrieval of non-heirarchical data. With multiple airlines, it wasn't entirely clear how to get a semantic fit to this model. In the end, I settled on making the multiple airlines a query parameter for my API*
