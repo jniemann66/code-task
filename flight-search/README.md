@@ -7,6 +7,9 @@
 
 It allows the user to select an origin and destination for a one-way flight, and a desired travel date.
 
+##Live Demo
+[http://52.62.255.103:9999](http://52.62.255.103:9999 "Live Demo")
+
 ##Description
 
 
@@ -33,10 +36,10 @@ The app is written in plain javascript and doesn't require a transpile / build p
 
 libraries used:
 
-* Moment.js (pretty-much essential for correct handling of dates and times) - via CDN
-* jQuery 1.9 - via CDN
-* jQueryUI custom build (only includes 'autocomplete; and 'datepicker') - files included in distribution
-* Bootstrap 3.3.7 - via CDN
+* **Moment.js** (pretty-much essential for correct handling of dates and times) - via CDN
+* **jQuery 1.9** - via CDN
+* **jQueryUI custom build** (only includes 'autocomplete; and 'datepicker') - files included in distribution
+* **Bootstrap 3.3.7** - via CDN
 
 The main issues encountered in developing this front-end app have centered around the availability of the html5 elements **datalist** and **input type="date"** on various browsers. Although part of the html5 standard, these features are still missing on several browsers. In order to address this sorry state of affairs, the jQueryUI components "autocomplete" and "datepicker" were employed. A large amount of time was devoted to cross-browser-testing.
 
