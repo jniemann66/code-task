@@ -24,7 +24,7 @@ Each of the five days may be selected via tabs.
 Normally, the 5 days cover the range target-date +/-2 days. 
 However, if the target date is *today* or *tomorrow* the range will be adjusted so that none of the days are in the past. 
 
-eg **today, today+1, ..., today+4**  or **tomorrow, today, today+1, today+2, today+3**
+eg **today, tomorrow, tomorrow+1, tomorrow+2, tomorrow+3**
 
 Once the results are displayed, the user can select their desired flight, which takes them to confirmation page for a mock approval process.
 
