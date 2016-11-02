@@ -3,10 +3,13 @@
 var express = require('express');
 var cors = require('cors');
 var apiClient = require('./apiclient.js');
+var morgan = require('morgan');
 
 var app = express();
 
 app.use(cors()); // allow CORS
+app.use(morgan('combined'));
+
 var server;
 
 exports.start = function start(port, callback) {

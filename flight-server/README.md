@@ -40,6 +40,8 @@ cors
 
 express
 
+morgan
+
 ##dev dependencies
 
 chai
