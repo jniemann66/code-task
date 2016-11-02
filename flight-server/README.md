@@ -4,10 +4,14 @@
 
 This express server accepts http requests from browsers on port 3000, and subsequently makes http requests to the Locomote code-task API on behalf of the user.
 
-It performs flight searches based on requests containing a combination of airlines and dates. In order to achieve this, it asynchronously sends multiple single-flight-search requests to the Locomote code-task API on behalf of the user, and returns the combined results.
+It performs flight searches based on requests containing a combination of airlines and dates. In order to achieve this, it asynchronously sends multiple single-flight-search requests to the Locomote code-task API, and returns the combined results.
 
 (Consolidating single flight searches into a "bulk" search is necessary because most browsers can only handle around 6 concurrent http connections to the same host. If the browser was to make these invividual requests directly, With 6 airlines and 5 days, this would have amounted to 30 ajax requests from the browser each time the user clicked "search", which would not be acceptable).
 
+##Test Methodology
+
+This project was developed using as strict TDD methodology. No new functionality was added without first having an existing test written. Testing is done using Mocha and Chai.
+The test suite can be run at any time using the **npm test** command
 
 ##installation
 
@@ -81,6 +85,12 @@ identical to the Locomote API version. Returns an array of airline objects conta
 
 *Note: I spent some time trying to decide what the correct syntax for this should be. The 
 Locomote API syntax has a single airline as a URL parameter, followed by from, to, and date represented as query parameters. Normally, the path component identifies a resource, and the query parameters are for retrieval of non-heirarchical data. With multiple airlines, it wasn't entirely clear how to get a semantic fit to this model. In the end, I settled on making the multiple airlines a query parameter for my API*
+
+##Additional Considerations and To-do's:
+
+* need to add logging ([Winston](https://github.com/winstonjs/winston) / [Morgan](https://github.com/expressjs/morgan) etc)
+* In production environments, needs a process manager, such as [pm2](http://pm2.keymetrics.io/)
+* Consider adding a build process (webpack) with minification etc
 
 
 
