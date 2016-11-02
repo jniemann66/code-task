@@ -64,7 +64,7 @@ for development purposes, flight search can be launched directly from the local 
 
 Of course, any web server can be used. 
 
-For example, to server the page on port 9000 using the node server '[http-server](https://www.npmjs.com/package/http-server)':
+For example, to serve the page on port 9000 using the node server '[http-server](https://www.npmjs.com/package/http-server)':
 
 **npm install http-server -g**
 
