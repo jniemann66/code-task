@@ -45,6 +45,15 @@ The main issues encountered in developing this front-end app have centered aroun
 
 For details on the results of testing across various browsers, please refer to the pdf document [Browser-Notes-Observations.pdf](./Browser-Notes-Observations.pdf "Browser-Notes-Observations.pdf") included in this package.
 
+##configuring the back-end server address
+
+There is a variable at the top of the flight-search.js file which has the address of the back-end server:
+
+	var serverAddress = 'http://localhost:3000'; // local dev server
+
+Please ensure that this points to the node server back-end.
+
+
 ##Serving flight-search
 for development purposes, flight search can be launched directly from the local computer's filesystem by opening **index.html** in the browser. However, this is not recommended. Testing should be done from an actual http server.
 
