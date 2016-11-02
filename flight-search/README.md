@@ -32,10 +32,8 @@ Bootstrap is used to make the page responsive and to provide validation feedback
 
 A sort facility is also included. Results can be sorted by Airline, Departure Time, Flight Duration, or Price (default).
 
-The sort may also be ascending (default) or descending. The sort order can be changed as many times as desired for up to 5-minutes after
-
-the last search results were obtained, after which the results are considered to have expired, and a full search will be triggered on subsequent sort operations.
-
+The sort may also be ascending (default) or descending. The sort order can be changed as many times as desired for up to 5-minutes after the last search results were obtained, 
+after which the results are considered to have expired, and a full search will be triggered on subsequent sort operations.
 
 ##Coding and methodology
 
@@ -78,7 +76,7 @@ For example, to server the page on port 9000 using the node server '[http-server
 * formatting for results on small screens (phones) still needs some tweaking
 * Scripted testing using Selenium or Phantom.js should be implemented
 * There are still a couple of issues in safari, as noted in the pdf referenced above
-* A callout showing the cheapest flight might be very helpful to the use
+* A callout showing the cheapest flight might be very helpful for the user
 
 
 
