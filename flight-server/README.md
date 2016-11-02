@@ -15,11 +15,14 @@ The test suite can be run at any time using the **npm test** command
 
 ##installation
 
-**cd ./flight-server**
+###Prerequisite: 
+Node.js v4 or higher needs to be installed on the target platform
+Please visit [https://nodejs.org/](https://nodejs.org) for details on how to install Node on each platform
 
-**run start.sh**
+Once Node has been installed,
 
-(node assumed to already be installed)
+**cd flight-server && ./start.sh**
+
 
 ##npm commands
 
