@@ -1,5 +1,7 @@
 # Locomote code task
 
+----------
+
 
 ## Description
 
@@ -35,7 +37,7 @@ b) Back-End
 
 The **server components** (ie the back-end server and a web server to serve the user's front-end) are expected to run on any platform capable of running **Node** and **npm** , including mac, linux, or windows, with the the latter two probably being more commonplace as server platforms. 
 
-The back-end has been tested most extensively on **Kubuntu 16.04** and **Windows 10** anniversary edition, with intel x64 versions in both cases.
+The back-end has been tested on **Kubuntu 16.04,** **Windows 10**, and **Macintosh OSX,** all intel x64 versions.
 
 Node Versions **v4.2.6,** **v4.4.5,** **v4.4.7** have been tested thus far, and further testing on other Node versions (both older and newer) is underway. 
 
@@ -115,7 +117,7 @@ To: new (york)
 
 Date: (some date in the future)
 
-## Application Design and Behavior
+## Application Design and Behaviour
 
 The flight search needs to be intuitive, fast and easy to use. It should only require 3 input fields to be completed by the user in order to to give back a meaningful search result.
 
@@ -130,8 +132,31 @@ Upon hitting the search button, a flight search typically takes around 6-7 secon
 (Additional animations may also contribute to providing good feedback to the user, such as a flying jet or similar - this is something to be considered as a future additon to the interface.)
 
 The search results are subsequently displayed in a table, and the user has the opportunity to sort the results in various ways for a period of 5 minutes, after which the results are considered to have expired, triggering another search query to be sent to the server using the current search criteria and sort options.
-  
 
+![](flight-search/images/screenshots/OSX10.7-firefox48.PNG)
+*above: flight-search running on Firefox v48 on Macintosh OSX 10.7*
+
+
+Finally, the user can select a flight by clicking on the relevant "Select" button, which will take them to a confirmation screen. 
+
+(Since Locomote provides a workflow for their corporate customers, the flight would be sent off to the user's manager for approval at this point, but the implementation of that behaviour is beyond the scope of this project) 
+
+The end-user should expect to be able to use the app on a variety of different devices and browsers, so the interface needs to be responsive enough to provide a usable experience on any screen size.
+
+(currently, the formatting of results for small screens is readable, but still needs tuning ... )
+
+
+## Technologies used
+
+* Back-end server: **node.js** and **Express** (mostly ES5 syntax, with the only notable exceptions being arrow functions and Promises)
+* Back-end testing: **mocha** (testing framework) and **chai** (adds 'expect' module, among other things)
+* Back-end logging: **morgan** - provides basic logging of incoming requests and their eventual results (logging is certainly one area that could be expanded in this project - separate logs for errors vs access, and log rotations could ve implemented)
+* Back-end: **cors** - cross origin resource sharing facilitates communication between the browser and the back-end server when the front-end server is on a different domain to the back-end server. (Note: In a production environment, the Access-Control-allow-Origin policy should be tightened to specify the expected origin site) 
+* Front-end: **moment.js** - utility library for handling dates and times
+* Front-end: **Bootstrap 3** - used to provide form field validation feedback (red/green) and responsive design
+* Front-end: **jQuery** - used for selecting various DOM elements and a few event handlers
+* Front-end: **jQueryUI** (custom build with only datepicker and autocomplete) - used to polyfill html5 date and datalist on broswers that don't have them
+  
 ## Additional information on the project components
 
 More detailed information on the individual components (back-end server and front-end server) can be found in the README.md files of their respective subfolders:
