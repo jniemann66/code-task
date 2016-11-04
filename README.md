@@ -115,6 +115,22 @@ To: new (york)
 
 Date: (some date in the future)
 
+## Application Design and Behavior
+
+The flight search needs to be intuitive, fast and easy to use. It should only require 3 input fields to be completed by the user in order to to give back a meaningful search result.
+
+The input consists of an origin (aka 'from'), destination (aka 'to') and date field.
+
+Once the user starts typing into either the 'from' or 'to' fields, the app will look for matches from the back-end server in order to provide suitable auto-complete options as drop-downs
+ 
+The date needs to be unambiguous, and therefore a date-picker component is employed to ensure that the user can select valid dates with confidence and comfort.
+
+Upon hitting the search button, a flight search typically takes around 6-7 seconds, and thus some reassurance needs to be provided to the user that the search is underway, and that results will soon be available. In order to achieve this, a "glowing button" effect is implemented on the search button, to indicate that it is active.
+
+(Additional animations may also contribute to providing good feedback to the user, such as a flying jet or similar - this is something to be considered as a future additon to the interface.)
+
+The search results are subsequently displayed in a table, and the user has the opportunity to sort the results in various ways for a period of 5 minutes, after which the results are considered to have expired, triggering another search query to be sent to the server using the current search criteria and sort options.
+  
 
 ## Additional information on the project components
 
