@@ -13,6 +13,10 @@ For the purposes of this exercise, the front-end application is not permitted to
 
 Note: the original brief for the project can be found [here](http://node.locomote.com/code-task/ "here")
 
+The overall achitecture looks something like this:
+
+![](architecture.png)
+
  
 ## Target environments
 
