@@ -2,8 +2,8 @@
 
   // constants:
 
-  var serverAddress = 'http://localhost:3000'; // local dev server
-  //var serverAddress = 'http://52.62.255.103:3000'; // Judd's AWS server 
+  var serverAddress = 'http://localhost:9000'; // local dev server
+  //var serverAddress = 'http://52.62.255.103:9000'; // Judd's AWS server 
 
   var searchExpiry = 5; // maximum age for search results in minutes. Sorting will trigger re-search if results have expired.
 
