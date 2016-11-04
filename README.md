@@ -47,7 +47,7 @@ enter the address of the front-end server in your browser:
 and do a basic flight search:
 
 From: syd
-To: jfk
+To: new (york)
 Date: (some date in the future)
 
 ## Additional information on the project components
