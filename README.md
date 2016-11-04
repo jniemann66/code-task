@@ -23,7 +23,7 @@ A summary of the some of the results of testing on various browsers and OSes can
 
 [Browser-Notes-Observations.pdf](./flight-search/Browser-Notes-Observations.pdf "Browser Notes and Observations")
 
-Am assortment of screenshots from these tests can also be found here: [./images/screenshots](./images/screenshots)
+Am assortment of screenshots from these tests can also be found here: [./images/screenshots](flight-search/images/screenshots)
 
 *(One of the biggest challenges with this project was dealing with the html5 date and datalist inputs which, at the time of writing, are still missing from various modern browsers. The solution was to polyfill using jQueryUI)*
 
