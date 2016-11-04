@@ -16,13 +16,30 @@ The test suite can be run at any time using the **npm test** command
 ##installation
 
 ###Prerequisite: 
-Node.js v4 or higher needs to be installed on the target platform
-Please visit [https://nodejs.org/](https://nodejs.org) for details on how to install Node on each platform
 
+* Node.js v4 or higher needs to be installed on the target platform
+* npm needs to be installed on the target platform
+Please visit [https://nodejs.org/](https://nodejs.org) for details on how to install Node on particular platforms
+
+* mocha (used for testing) needs to be installed globally
+these usually need to be run with root permissions. For example, on ubuntu:
+
+    sudo apt-get install nodejs
+    sudo apt-get install npm
+    sudo npm install mocha -g
+    
+    #node is called 'nodejs' on ubuntu - create a symlink
+    sudo ln -s /usr/bin/nodejs /usr/bin/node
+    
 Once Node has been installed,
 
-**cd flight-server && ./start.sh**
+flight-server/start.sh needs to have execute permissions:
 
+    chmod +x flight-server/start.sh
+
+then just run start.sh, eg:
+    
+    cd flight-server && ./start.sh
 
 ##npm commands
 
@@ -53,6 +70,8 @@ superagent
 moment
 
 ##Node versions tested during development
+
+**v4.2.6,**
 
 **v4.4.7,**
 
