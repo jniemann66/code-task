@@ -49,7 +49,7 @@ describe('API retrieval functions', function() {
 
 describe('Flight Server', function() {
   var flightServer = require ('../src/flight-server');
-  var port = 3000;
+  var port = 9000;
   var baseUrl = 'http://localhost:' + port;
 
   before(function(done) {
