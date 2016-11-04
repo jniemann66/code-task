@@ -39,11 +39,6 @@ However, it is not anticipated that the Node version will be particularly critic
 
 At the time of writing, it is recommended to stay on the Node version-4 track, as it has LTS status until April 2018.
 
-This project is divided into two components
-
-1. a **back-end server** written in Node/Express running on **port 9000**
-2. a **front-end server** running on port **3000**
-
 ## Prerequisites
 
 * **Node.js** v4 or higher needs to be installed on the target platform
@@ -81,13 +76,22 @@ then just run start.sh from the root of this project eg:
 
 *Note to Windows Users: to run bash scripts, the use of [Git Bash](https://git-for-windows.github.io/ "Git Bash") is recommended.* 
 
-The startup process for the back-end server incorporates a test before the service starts. All of the tests are expected to pass. Failure to pass all tests indicates a problem.
+Note: running **start.sh** from the root of the project actually launches TWO servers ! 
 
-additionally, the test can be run at any time from the **flight-server** directory, by running the command:
+1. the **back-end server** written in Node/Express running on **port 9000**
+2. the **front-end server** running on port **3000**
+
+... these correspond to the two components of this project. In a production environment, these two services could (and maybe should) be run on entirely different machines / VMs.
+
+The end-user connects to the front-end server on port 3000
+
+The startup process for the back-end server incorporates a suite of tests before the service starts. All of the tests are expected to pass. Failure to pass all tests indicates a problem.
+
+Additionally, the test suite can be run at any time from the **flight-server** directory, by running the command:
 
 **npm test**
 
-However, it will not work if there is an instance of the back-end server already running, as a conflict will arise from both insances trying to bind to port 9000
+However, it will not work if there is an instance of the back-end server already running, as a conflict will arise from both instances trying to bind to port 9000
 
 
 ## testing the app in a browser
@@ -99,9 +103,14 @@ enter the address of the front-end server in your browser:
 
 and do a basic flight search:
 
+the cities shoould auto-complete when you type 2-3 characters ...
+
 From: syd
+
 To: new (york)
+
 Date: (some date in the future)
+
 
 ## Additional information on the project components
 
