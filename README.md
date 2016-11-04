@@ -35,9 +35,9 @@ The back-end has been tested most extensively on **Kubuntu 16.04** and **Windows
 
 Node Versions **v4.2.6,** **v4.4.5,** **v4.4.7** have been tested thus far, and further testing on other Node versions (both older and newer) is underway. 
 
-However, it is not anticipated that the Node version will be particularly critical for this project (with ES6 arrow functions and Promises being the only remotely "exotic" language features used)
+However, it is not anticipated that the version of Node will be particularly critical for this project (with ES6 arrow functions and Promises being the only remotely "exotic" language features used)
 
-At the time of writing, it is recommended to stay on the Node version-4 track, as it has LTS status until April 2018.
+Nevertheless, at the time of writing, it is recommended to stay on the Node version-4 track, as it has LTS status until April 2018.
 
 ## Prerequisites
 
@@ -83,7 +83,7 @@ Note: running **start.sh** from the root of the project actually launches TWO se
 
 ... these correspond to the two components of this project. In a production environment, these two services could (and maybe should) be run on entirely different machines / VMs.
 
-The end-user connects to the front-end server on port 3000
+The end-user connects their browser to the front-end server on port 3000
 
 The startup process for the back-end server incorporates a suite of tests before the service starts. All of the tests are expected to pass. Failure to pass all tests indicates a problem.
 
