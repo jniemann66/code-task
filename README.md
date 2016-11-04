@@ -1,5 +1,6 @@
 # Locomote code task
 
+
 ## Description
 
 This project is a coding assignment, in which the task is to build an airline flight-search application.
