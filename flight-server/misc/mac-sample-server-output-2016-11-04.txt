@@ -1,0 +1,129 @@
+Macintosh:code-task-master xxxxxx$ ./start.sh
+Installing npm dependencies ...
+Starting up http-server, serving ./
+Available on:
+  http://127.0.0.1:3000
+  http://192.168.x.11:3000
+Hit CTRL-C to stop the server
+npm WARN flight-server@1.0.0 No repository field.
+Testing server ...
+
+> flight-server@1.0.0 test /Users/xxxxxxx/Judd/code-task-master/flight-server
+> mocha -R spec -c
+
+
+
+  API retrieval functions
+    when calling the getAirportsFromAPI() function
+      ✓ should return an array of airports (658ms)
+    when calling the getAirlinesFromAPI() function
+      ✓ should return an array of airlines (379ms)
+    when calling the getFlightsFromAPI() function
+      ✓ should return flight data (5946ms)
+    when querying for a non-existent airport, the getAirportsFromAPI() function
+      ✓ should return an empty array (376ms)
+
+  Flight Server
+    when sending a request to /airports?q=Melbourne
+GET /airports?q=Melbourne 200 382.005 ms - 259
+      ✓ should return an array of airports matching the query (400ms)
+    when sending a request to /airlines
+GET /airlines 200 398.578 ms - 214
+      ✓ should return an array of airlines (404ms)
+    when sending a request for flights
+GET /flight_search?airline=SU,MU,EK,KE,QF,SQ&date=2016-11-16,2016-11-17,2016-11-18,2016-11-19,2016-11-20&from=SYD&to=JFK 200 6608.619 ms - 144145
+      ✓ should return an array of flights, with the correct fields (6618ms)
+    when sending a malformed request (unrecognized query params)
+GET /flight_search?bad_request 400 0.566 ms - 36
+      ✓ the server should return a status 400
+    when sending a malformed request (no airlines specified)
+GET /flight_search?airline=&date=2016-11-16,2016-11-17,2016-11-18,2016-11-19,2016-11-20&from=SYD&to=JFK 400 0.200 ms - 36
+      ✓ the server should return a status 400
+    when sending a malformed request (no dates specified)
+GET /flight_search?airline=SU,MU,EK,KE,QF,SQ&date=&from=SYD&to=JFK 400 0.353 ms - 36
+      ✓ the server should return a status 400
+    when sending a malformed request (non-existent airline)
+GET /flight_search?airline=xx,QF&date=&from=SYD&to=JFK 400 0.145 ms - 36
+      ✓ the server should return a status 400
+    when sending a malformed request (date in the past)
+GET /flight_search?airline=QF&date=2009-07-11&from=SYD&to=JFK 400 381.549 ms - 36
+      ✓ the server should return a status 400 (385ms)
+
+
+  12 passing (15s)
+
+starting server ...
+
+> flight-server@1.0.0 start /Users/Michael/Judd/code-task-master/flight-server
+> node ./src/start-server.js
+
+started
+
+>>>>>Chrome Request>>>>>
+
+
+[Fri Nov 04 2016 20:31:41 GMT+1100 (AEDT)] "GET /" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.35 Safari/537.36"
+[Fri Nov 04 2016 20:31:41 GMT+1100 (AEDT)] "GET /styles/style.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.35 Safari/537.36"
+[Fri Nov 04 2016 20:31:41 GMT+1100 (AEDT)] "GET /scripts/jquery-ui-1.12.1.custom/jquery-ui.min.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.35 Safari/537.36"
+[Fri Nov 04 2016 20:31:41 GMT+1100 (AEDT)] "GET /scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.35 Safari/537.36"
+[Fri Nov 04 2016 20:31:41 GMT+1100 (AEDT)] "GET /scripts/flight-search.js" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.35 Safari/537.36"
+[Fri Nov 04 2016 20:31:42 GMT+1100 (AEDT)] "GET /favicon.ico" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.35 Safari/537.36"
+[Fri Nov 04 2016 20:31:42 GMT+1100 (AEDT)] "GET /favicon.ico" Error (404): "Not found"
+GET /airports?q=sy 200 393.838 ms - 1156
+GET /airports?q=syd 200 377.845 ms - 231
+GET /airports?q=ne 200 377.873 ms - 1189
+GET /airports?q=new 200 383.165 ms - 1290
+GET /airlines 200 380.981 ms - 214
+GET /flight_search?airline=SU,MU,EK,KE,QF,SQ&date=2016-11-04,2016-11-05,2016-11-06,2016-11-07,2016-11-08&from=SYD&to=JFK 200 6728.690 ms - 144189
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+>>>>>Safari Request>>>>>
+
+[Fri Nov 04 2016 20:41:10 GMT+1100 (AEDT)] "GET /" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50"
+[Fri Nov 04 2016 20:41:10 GMT+1100 (AEDT)] "GET /styles/style.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50"
+[Fri Nov 04 2016 20:41:10 GMT+1100 (AEDT)] "GET /scripts/jquery-ui-1.12.1.custom/jquery-ui.min.css" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50"
+[Fri Nov 04 2016 20:41:10 GMT+1100 (AEDT)] "GET /scripts/flight-search.js" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50"
+[Fri Nov 04 2016 20:41:10 GMT+1100 (AEDT)] "GET /scripts/jquery-ui-1.12.1.custom/jquery-ui.min.js" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50"
+[Fri Nov 04 2016 20:41:12 GMT+1100 (AEDT)] "GET /favicon.ico" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50"
+[Fri Nov 04 2016 20:41:12 GMT+1100 (AEDT)] "GET /favicon.ico" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:12 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:12 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:12 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:12 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" Error (404): "Not found"
+GET /airports?q=sy 200 426.475 ms - 1156
+GET /airports?q=syd 200 400.416 ms - 231
+GET /airports?q=ne 200 392.294 ms - 1189
+GET /airports?q=new 200 382.609 ms - 1290
+GET /airports?q=new%20 200 395.379 ms - 1290
+[Fri Nov 04 2016 20:41:31 GMT+1100 (AEDT)] "GET /scripts/jquery-ui-1.12.1.custom/images/ui-icons_444444_256x240.png" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50"
+[Fri Nov 04 2016 20:41:34 GMT+1100 (AEDT)] "GET /scripts/jquery-ui-1.12.1.custom/images/ui-icons_555555_256x240.png" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko) Version/10.0 Safari/602.1.50"
+GET /airlines 200 375.413 ms - 214
+GET /flight_search?airline=SU,MU,EK,KE,QF,SQ&date=2016-11-04,2016-11-05,2016-11-06,2016-11-07,2016-11-08&from=SYD&to=JFK 200 6276.506 ms - 144215
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/602.1.50 (KHTML, like Gecko)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /favicon.ico" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /favicon.ico" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /favicon.ico" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /favicon.ico" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /favicon.ico" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /favicon.ico" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon-precomposed.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /apple-touch-icon.png" Error (404): "Not found"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /favicon.ico" "Safari/11602.1.50.0.10 CFNetwork/760.6.3 Darwin/15.6.0 (x86_64)"
+[Fri Nov 04 2016 20:41:52 GMT+1100 (AEDT)] "GET /favicon.ico" Error (404): "Not found"
