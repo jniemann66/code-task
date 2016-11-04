@@ -54,7 +54,7 @@ For details on the results of testing across various browsers, please refer to t
 
 There is a variable at the top of the flight-search.js file which has the address of the back-end server:
 
-	var serverAddress = 'http://localhost:3000'; // local dev server
+	var serverAddress = 'http://localhost:9000'; // local dev server
 
 Please ensure that this points to the node server back-end.
 
@@ -64,11 +64,11 @@ for development purposes, flight search can be launched directly from the local 
 
 Of course, any web server can be used. 
 
-For example, to serve the page on port 9000 using the node server '[http-server](https://www.npmjs.com/package/http-server)':
+For example, to serve the page on port 3000 using the node server '[http-server](https://www.npmjs.com/package/http-server)':
 
 **npm install http-server -g**
 
-**cd flight-search && http-server -p 9000**
+**cd flight-search && http-server -p 3000**
 
 ##Additional considerations and to-do's
 

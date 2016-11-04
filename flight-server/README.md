@@ -2,7 +2,7 @@
 
 ##Introduction
 
-This express server accepts http requests from browsers on port 3000, and subsequently makes http requests to the Locomote code-task API on behalf of the user.
+This express server accepts http requests from browsers on port 9000, and subsequently makes http requests to the Locomote code-task API on behalf of the user.
 
 It performs flight searches based on requests containing a combination of airlines and dates. In order to achieve this, it asynchronously sends multiple single-flight-search requests to the Locomote code-task API, and returns the combined results.
 
@@ -79,13 +79,9 @@ moment
 
 **v4.4.5**
 
-##Live Demo
-
-**http://52.62.255.103:3000**
-
 ##API description
 
-**http://server-address:3000/airports?q=xxx**
+**http://server-address:9000/airports?q=xxx**
 
 does an airport search in a similar fashion to the Locomote code-task API. 
 However, the information returned is a subset of the information provided by the Locomote API
@@ -98,11 +94,11 @@ cityName,
 countryName,
 stateCode
 
-**http://server-address:3000/airlines**
+**http://server-address:9000/airlines**
 
 identical to the Locomote API version. Returns an array of airline objects containing the fields: code, name
 
-**http://server-address:3000/flight_search?airline=a,b,c&date=x,y,z&from=sss&to=ddd**
+**http://server-address:9000/flight_search?airline=a,b,c&date=x,y,z&from=sss&to=ddd**
 
 * does a flight query which accepts a combination of **multiple airline codes (a,b,c, ...)** and **multiple dates (x,y,z ...)**
 
