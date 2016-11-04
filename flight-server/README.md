@@ -22,13 +22,15 @@ The test suite can be run at any time using the **npm test** command
 Please visit [https://nodejs.org/](https://nodejs.org) for details on how to install Node on particular platforms
 
 * mocha (used for testing) needs to be installed globally
-these usually need to be run with root permissions. For example, on ubuntu:
+
+these packages usually need to be installed with admin permission. For example, on ubuntu:
 
     sudo apt-get install nodejs
     sudo apt-get install npm
     sudo npm install mocha -g
     
-    #node is called 'nodejs' on ubuntu - create a symlink
+also, node is called 'nodejs' on ubuntu - create a symlink:
+
     sudo ln -s /usr/bin/nodejs /usr/bin/node
     
 Once Node has been installed,
