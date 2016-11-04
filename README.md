@@ -16,8 +16,8 @@ Note: the original brief for the project can be found [here](http://node.locomot
 The overall achitecture looks something like this:
 
 ![](architecture.PNG)
-
  
+
 ## Target environments
 
 a) Front End
