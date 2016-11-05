@@ -49,11 +49,12 @@ It is not anticipated that the version of Node will be particularly critical, al
 
 ## Prerequisites
 
-* **Node.js** v4 or higher needs to be installed on the target platform
-* **npm** needs to be installed on the target platform.
+* **[Node.js](https://nodejs.org)** v4 or higher needs to be installed on the target platform
+* **[npm](http://blog.npmjs.org/post/85484771375/how-to-install-npm)** needs to be installed on the target platform.
 
 Please visit [https://nodejs.org/](https://nodejs.org) for details on how to install Node (and npm) on particular platforms
-* **mocha** (used for testing) needs to be installed globally
+
+* **[mocha](https://mochajs.org/)** (used for testing) needs to be installed globally
 
 these packages usually need to be installed with admin permission. For example, on ubuntu:
 
@@ -144,14 +145,14 @@ The end-user should expect to be able to use the app on a variety of different d
 
 ## Technologies used
 
-* Back-end server: **node.js** and **Express**
-* Back-end testing: **mocha** (testing framework) and **chai** (adds 'expect' module, among other things)
-* Back-end logging: **morgan** - provides basic logging of incoming requests and their eventual results (logging is certainly one area that could be expanded in this project - separate logs for errors vs access, and log rotations could ve implemented)
+* Back-end server: **[Node.js](https://nodejs.org)** and **[Express](http://expressjs.com/)**
+* Back-end testing: **[mocha](https://mochajs.org/)** (testing framework) and **[chai](http://chaijs.com/)** (adds 'expect' module, among other things)
+* Back-end logging: **[morgan](https://github.com/expressjs/morgan)** - provides basic logging of incoming requests and their eventual results (logging is certainly one area that could be expanded in this project - separate logs for errors vs access, and log rotations could ve implemented)
 
-* Front-end: **moment.js** - utility library for handling dates and times
-* Front-end: **Bootstrap 3** - used to provide form field validation feedback (red/green) and responsive design
-* Front-end: **jQuery** - used for selecting various DOM elements and a few event handlers
-* Front-end: **jQueryUI** (custom build with only datepicker and autocomplete) - used to polyfill html5 date and datalist on broswers that don't have them
+* Front-end: **[moment.js](http://momentjs.com/)** - utility library for handling dates and times
+* Front-end: **[Bootstrap 3](http://getbootstrap.com/)** - used to provide form field validation feedback (red/green), button styling, and responsive design
+* Front-end: **[jQuery](https://jquery.com/)** - used for selecting various DOM elements and a few event handlers
+* Front-end: **[jQueryUI](http://jqueryui.com/)** (custom build with only datepicker and autocomplete) - used to polyfill html5 date and datalist on broswers that don't have them
   
 ## Additional information on the project components
 

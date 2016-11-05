@@ -56,7 +56,6 @@ then just run start.sh, eg:
 
 **npm start** - start server
 
-**npm stop** - stop server
 
 ##dependencies
 
