@@ -21,7 +21,7 @@ Note: the original brief for the project can be found [here](http://node.locomot
 
 The overall achitecture looks something like this:
 
-![](architecture.PNG)
+![](docs/images/architecture.PNG)
  
 
 ## Target environments
