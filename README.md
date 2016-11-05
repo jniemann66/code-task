@@ -96,7 +96,7 @@ However, it will NOT work if there is an instance of the back-end server already
 
 ## testing the app in a browser
 
-Once both the back-end server is running,
+Once the back-end server is running,
 enter the address of the front-end server in your browser:
 
 **http://localhost:3000**
@@ -159,6 +159,10 @@ More detailed information on the individual components (back-end server and fron
 
 flight-server:
 [README-flight-server](docs/README-flight-server.md)
+
+flight-search:
+[README-flight-search](docs/README-flight-search.md)
+
 
 
 
