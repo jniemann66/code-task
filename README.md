@@ -45,12 +45,13 @@ The back-end has been tested on **Kubuntu 16.04,** **Windows 10**, and **Macinto
 
 Node Versions **v4.2.6,** **v4.4.5,** **v4.4.7** have been tested thus far, and further testing on other Node versions (both older and newer) is underway. 
 
-It is not anticipated that the version of Node will be particularly critical, although the server does use some ES6 (ES2015) language features (such as const, let, arrow functions, and promises). at the time of writing (November 2016) it is recommended that version 4 or higher be used. (Node v4 also has LTS status until April 2018). 
+It is not anticipated that the version of Node will be particularly critical, although the server does use some ES6 (ES2015) language features (such as const, let, arrow functions, and promises). At the time of writing (November 2016) it is recommended that version 4 or higher be used. (Node v4 also has LTS status until April 2018). 
 
 ## Prerequisites
 
 * **Node.js** v4 or higher needs to be installed on the target platform
-* **npm** needs to be installed on the target platform
+* **npm** needs to be installed on the target platform.
+
 Please visit [https://nodejs.org/](https://nodejs.org) for details on how to install Node (and npm) on particular platforms
 * **mocha** (used for testing) needs to be installed globally
 
