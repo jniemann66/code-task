@@ -1,8 +1,9 @@
-var flightServer = require ('../src/flight-server');
+const PORT = 3000;
+const flightServer = require ('../src/flight-server');
 
 try {
-  flightServer.start(9000, function(err) {
-    console.log('started');
+  flightServer.start(PORT, function(err) {
+    console.log('started serving on port ' + PORT);
   });
 }
 

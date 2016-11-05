@@ -73,7 +73,7 @@ cd to the root directory of the project.
 ensure that **start.sh** and **flight-server/start.sh** have execute permissions. For example:
 
 	chmod +x start.sh
-    chmod +x flight-server/start.sh
+  chmod +x flight-server/start.sh
 
 then just run start.sh from the root of this project eg:
     

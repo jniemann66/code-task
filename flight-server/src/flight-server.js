@@ -1,16 +1,17 @@
-// flight-server.js (library; no entry-point)
+// flight-server.js (flight-server core library; no entry-point)
 
-var express = require('express');
-var cors = require('cors');
-var apiClient = require('./apiclient.js');
-var morgan = require('morgan');
+"use strict";
 
-var app = express();
+const express = require('express');
+const apiClient = require('./apiclient.js');
+const path = require('path');
+const morgan = require('morgan');
 
-app.use(cors()); // allow CORS
-app.use(morgan('dev'));
+const app = express();
 
-var server;
+app.use(morgan('dev')); // for logging http requests
+
+let server;
 
 exports.start = function start(port, callback) {
   server = app.listen(port, callback);
@@ -19,6 +20,12 @@ exports.start = function start(port, callback) {
 exports.stop = function stop(callback) {
   server.close(callback);
 };
+
+// serve the index.html entry page
+
+
+// serve the static files for the flight-search app:
+app.use(express.static(path.join(__dirname,'flight-search')));
 
 // airport search
 // usage: /airports?q=xxx
@@ -32,7 +39,7 @@ app.get ('/airports',
       }
     
       // copy the fields which are relevant to this project:
-      var abridgedData = data.map(airport => ({
+      let abridgedData = data.map(airport => ({
         airportCode: airport.airportCode,
         airportName: airport.airportName,
         cityName: airport.cityName,
@@ -75,13 +82,13 @@ app.get ('/flight_search',
        return;
     }
 
-    var airlines = req.query.airline.split(',');
-    var dates = req.query.date.split(',');
+    let airlines = req.query.airline.split(',');
+    let dates = req.query.date.split(',');
 
     // flatten all date and airline combinations into array:
-    var dateAirlineCombinations = [];
-    for(var i = 0; i < dates.length; ++i) {
-      for(var j = 0; j < airlines.length; ++j) {
+    let dateAirlineCombinations = [];
+    for(let i = 0; i < dates.length; ++i) {
+      for(let j = 0; j < airlines.length; ++j) {
         dateAirlineCombinations.push({
           date: dates[i],
           airline: airlines[j], 
@@ -90,7 +97,7 @@ app.get ('/flight_search',
     }
 
     // perform a flight search for each date/airline combination:
-    var results = dateAirlineCombinations.map(combo => getFlightsForSingleDay({
+    let results = dateAirlineCombinations.map(combo => getFlightsForSingleDay({
       airline: combo.airline,
       date: combo.date,
       from: req.query.from,
@@ -99,7 +106,7 @@ app.get ('/flight_search',
 
     // gather and combine results, and send response:
     Promise.all(results).then(function(data) {
-      var combinedData = [].concat.apply([], data); // merge results into a single array
+      let combinedData = [].concat.apply([], data); // merge results into a single array
       res.setHeader('Content-Type', 'application/json');
       res.status(200).send(JSON.stringify(combinedData));
     }).catch(function(err) {
@@ -121,7 +128,7 @@ function getFlightsForSingleDay (parameters) {
           reject(new Error('No data'));
         } else {
           // copy the fields which are relevant to this project:
-          var abridgedData = data.map(flight => ({ 
+          let abridgedData = data.map(flight => ({ 
             key: flight.key,
             airline: { 
               code: flight.airline.code, 
