@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# this script starts the back-end server
+# This script starts the back-end server
 # It also does a test beforehand ...
 
 echo "Installing npm dependencies ..."
