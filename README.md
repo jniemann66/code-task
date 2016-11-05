@@ -33,7 +33,7 @@ A summary of the some of the results of testing on various browsers and OSes can
 
 [Browser-Notes-Observations.pdf](./docs/Browser-Notes-Observations.pdf)
 
-Am assortment of screenshots from these tests can also be found here: [docs/images/screenshots](docs/images/screenshots)
+An assortment of screenshots from these tests can also be found here: [docs/images/screenshots](docs/images/screenshots)
 
 *(One of the biggest challenges with this project was dealing with the html5 date and datalist inputs which, at the time of writing, are still missing from various modern browsers. The solution was to polyfill using jQueryUI)*
 
