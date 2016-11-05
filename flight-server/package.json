@@ -6,6 +6,10 @@
   "directories": {
     "test": "test"
   },
+  "repository" :
+  { "type" : "git"
+  , "url" : "https://github.com/jniemann66/code-task"
+  },
   "scripts": {
     "test": "mocha -R spec -c",
     "start": "node ./src/start-server.js"
