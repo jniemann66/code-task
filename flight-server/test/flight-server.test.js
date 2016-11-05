@@ -60,6 +60,17 @@ describe('Flight Server', function() {
     flightServer.stop(done);
   });
 
+  describe('when requesting home page', function() {
+    it('should get index.html', function(done){
+      request.get(baseUrl + '/').end(function assert(err, res) {
+        expect(res).to.have.property('status', 200);
+        expect(res).to.have.property('type', 'text/html');
+        expect(res.text).to.contain('<html>');
+        done();
+      });
+    });
+  });
+
   describe('when sending a request to /airports?q=Melbourne', function() {
     it('should return an array of airports matching the query', function(done) {
       request.get(baseUrl + '/airports?q=Melbourne').end(function assert(err, res) {
