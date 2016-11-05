@@ -20,7 +20,7 @@ The test suite can be run at any time using the **npm test** command
 
 ##installation
 
-###Prerequisite: 
+###Prerequisites: 
 
 * **Node.js v4** or higher needs to be installed on the target platform
 * **npm** needs to be installed on the target platform

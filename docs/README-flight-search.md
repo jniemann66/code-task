@@ -52,7 +52,9 @@ The main issues encountered in developing this front-end app have centered aroun
 
 ##configuring the back-end server address
 
-There is a variable at the top of the **flight-search.js** file which has the address of the back-end server:
+There is a variable **serverAddress** at the top of the **flight-search.js** file which needs to be set to the address of the web server,
+
+so that the app knows where to send its AJAX requests:
 
 	var serverAddress = 'http://localhost:3000'; // for AJAX requests
 
