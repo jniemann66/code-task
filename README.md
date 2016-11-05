@@ -8,8 +8,12 @@
 This project is a coding assignment, in which the task is to build an airline flight-search application.
 The app consists of two components:
 
-1. A **Back-end server,** which accepts and responds to queries from the user's browser
-2. A **Front-end application,** which has a user-friendly interface, and allows the user to search for flights, based on a specific origin, destination, and date. 
+1. A **Front-end application,** which has a user-friendly interface, and allows the user to search for flights, based on a specific origin, destination, and date.
+
+2. A **Back-end server,** which performs two functions:
+	1.  serves the html, javascript and css for the front-end application to the user
+	2.  accepts and responds to AJAX queries from the user's browser
+
 
 For the purposes of this exercise, the front-end application is not permitted to use web frameworks such as React or Angular, but it may use utility libraries such as lodash, jQuery, and moment.js
 
@@ -27,53 +31,49 @@ a) Front End
 The **front-end** has been extensively tested on a number of browsers and platforms. 
 A summary of the some of the results of testing on various browsers and OSes can be found in the following pdf:
 
-[Browser-Notes-Observations.pdf](./flight-search/Browser-Notes-Observations.pdf "Browser Notes and Observations")
+[Browser-Notes-Observations.pdf](./docs/Browser-Notes-Observations.pdf)
 
-Am assortment of screenshots from these tests can also be found here: [./images/screenshots](flight-search/images/screenshots)
+Am assortment of screenshots from these tests can also be found here: [docs/images/screenshots](docs/images/screenshots)
 
 *(One of the biggest challenges with this project was dealing with the html5 date and datalist inputs which, at the time of writing, are still missing from various modern browsers. The solution was to polyfill using jQueryUI)*
 
 b) Back-End
 
-The **server components** (ie the back-end server and a web server to serve the user's front-end) are expected to run on any platform capable of running **Node** and **npm** , including mac, linux, or windows, with the the latter two probably being more commonplace as server platforms. 
+The **back-end-server** is expected to run on any platform capable of running **Node** and **npm** , including Mac, Linux, or Windows, with the latter two probably being more commonplace as server platforms. 
 
-The back-end has been tested on **Kubuntu 16.04,** **Windows 10**, and **Macintosh OSX,** all intel x64 versions.
+The back-end has been tested on **Kubuntu 16.04,** **Windows 10**, and **Macintosh OSX** - all Intel x64 versions.
 
 Node Versions **v4.2.6,** **v4.4.5,** **v4.4.7** have been tested thus far, and further testing on other Node versions (both older and newer) is underway. 
 
-However, it is not anticipated that the version of Node will be particularly critical for this project (with ES6 arrow functions and Promises being the only remotely "exotic" language features used)
-
-Nevertheless, at the time of writing, it is recommended to stay on the Node version-4 track, as it has LTS status until April 2018.
+It is not anticipated that the version of Node will be particularly critical, although the server does use some ES6 (ES2015) language features (such as const, let, arrow functions, and promises). at the time of writing (November 2016) it is recommended that version 4 or higher be used. (Node v4 also has LTS status until April 2018). 
 
 ## Prerequisites
 
 * **Node.js** v4 or higher needs to be installed on the target platform
 * **npm** needs to be installed on the target platform
-Please visit [https://nodejs.org/](https://nodejs.org) for details on how to install Node on particular platforms
+Please visit [https://nodejs.org/](https://nodejs.org) for details on how to install Node (and npm) on particular platforms
 * **mocha** (used for testing) needs to be installed globally
-* npm package **http-server** (used for serving the front-end) needs to be installed globally
 
 these packages usually need to be installed with admin permission. For example, on ubuntu:
 
     sudo apt-get install nodejs
     sudo apt-get install npm
     sudo npm install mocha -g
-	sudo npm install http-server -g 
     
-(UBUNTU ONLY) node is called 'nodejs' on ubuntu - so, create a symlink:
+(UBUNTU ONLY) node is called 'nodejs' on Ubuntu - so, create a symlink:
 
     sudo ln -s /usr/bin/nodejs /usr/bin/node
 
 ## Starting the server
 
-Once **Node, npm, mocha,** and **http-server** have been installed,
+Once **Node, npm,** and **mocha** have been installed,
 
 cd to the root directory of the project.
 
 ensure that **start.sh** and **flight-server/start.sh** have execute permissions. For example:
 
 	chmod +x start.sh
-  chmod +x flight-server/start.sh
+	chmod +x flight-server/start.sh
 
 then just run start.sh from the root of this project eg:
     
@@ -81,13 +81,6 @@ then just run start.sh from the root of this project eg:
 
 
 *Note to Windows Users: to run bash scripts, the use of [Git Bash](https://git-for-windows.github.io/ "Git Bash") is recommended.* 
-
-Note: running **start.sh** from the root of the project actually launches TWO servers ! 
-
-1. the **back-end server** written in Node/Express running on **port 9000**
-2. the **front-end server** running on port **3000**
-
-... these correspond to the two components of this project. In a production environment, these two services could (and maybe should) be run on entirely different machines / VMs.
 
 The end-user connects their browser to the front-end server on port 3000
 
@@ -97,7 +90,7 @@ Additionally, the test suite can be run at any time from the **flight-server** d
 
 **npm test**
 
-However, it will not work if there is an instance of the back-end server already running, as a conflict will arise from both instances trying to bind to port 9000
+However, it will not work if there is an instance of the back-end server already running, as a conflict will arise from both instances trying to bind to port 3000
 
 
 ## testing the app in a browser
@@ -129,9 +122,11 @@ The date needs to be unambiguous, and therefore a date-picker component is emplo
 
 Upon hitting the search button, a flight search typically takes around 6-7 seconds, and thus some reassurance needs to be provided to the user that the search is underway, and that results will soon be available. In order to achieve this, a "glowing button" effect is implemented on the search button, to indicate that it is active.
 
-(Additional animations may also contribute to providing good feedback to the user, such as a flying jet or similar - this is something to be considered as a future additon to the interface.)
+(Additional "loading" animations may also contribute to providing good feedback to the user, such as a flying jet or similar - this is something to be considered as a future additon to the interface.)
 
 The search results are subsequently displayed in a table, and the user has the opportunity to sort the results in various ways for a period of 5 minutes, after which the results are considered to have expired, triggering another search query to be sent to the server using the current search criteria and sort options.
+
+In addition to the date entered by the user, 4 additional dates are also shown in the results (+/- 2 days from the entered date). These can be viewed by selecting tabs.
 
 ![](flight-search/images/screenshots/OSX10.7-firefox48.PNG)
 *above: flight-search running on Firefox v48 on Macintosh OSX 10.7*
@@ -148,10 +143,10 @@ The end-user should expect to be able to use the app on a variety of different d
 
 ## Technologies used
 
-* Back-end server: **node.js** and **Express** (mostly ES5 syntax, with the only notable exceptions being arrow functions and Promises)
+* Back-end server: **node.js** and **Express**
 * Back-end testing: **mocha** (testing framework) and **chai** (adds 'expect' module, among other things)
 * Back-end logging: **morgan** - provides basic logging of incoming requests and their eventual results (logging is certainly one area that could be expanded in this project - separate logs for errors vs access, and log rotations could ve implemented)
-* Back-end: **cors** - cross origin resource sharing facilitates communication between the browser and the back-end server when the front-end server is on a different domain to the back-end server. (Note: In a production environment, the Access-Control-allow-Origin policy should be tightened to specify the expected origin site) 
+
 * Front-end: **moment.js** - utility library for handling dates and times
 * Front-end: **Bootstrap 3** - used to provide form field validation feedback (red/green) and responsive design
 * Front-end: **jQuery** - used for selecting various DOM elements and a few event handlers
@@ -159,13 +154,10 @@ The end-user should expect to be able to use the app on a variety of different d
   
 ## Additional information on the project components
 
-More detailed information on the individual components (back-end server and front-end server) can be found in the README.md files of their respective subfolders:
-
-flight-search:
-[./flight-search/README.md](./flight-search/README.md)
+More detailed information on the individual components (back-end server and front-end app) can be found in the README.md files of their respective subfolders:
 
 flight-server:
-[./flight-server/README.md](./flight-server/README.md)
+[README-flight-server](docs/flight-server/README.md)
 
 
 
