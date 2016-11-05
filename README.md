@@ -94,7 +94,7 @@ The startup process for the back-end server incorporates a suite of tests before
 However, it will NOT work if there is an instance of the back-end server already running, as a conflict will arise from both instances trying to bind to port 3000)
 
 
-## testing the app in a browser
+## Testing the app in a browser
 
 Once the back-end server is running,
 enter the address of the front-end server in your browser:
@@ -162,6 +162,12 @@ flight-server:
 
 flight-search:
 [README-flight-search](docs/README-flight-search.md)
+
+## License
+
+This code is released under the MIT license
+Please see the [license](license) file for details
+
 
 
 
