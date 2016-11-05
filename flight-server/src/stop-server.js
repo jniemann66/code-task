@@ -1,4 +1,4 @@
-var flightServer = require ('../src/flight-server');
+var flightServer = require ('./flight-server');
 
 setTimeout(function(){
   flightServer.stop(function() {

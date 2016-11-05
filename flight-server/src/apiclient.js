@@ -1,6 +1,32 @@
 var http = require('http');
 var apiHost = 'node.locomote.com';
 
+module.exports = {
+
+  // function to get an array of airports from the API
+  getAirportsFromAPI: function (airportName, callback) {
+      var path = '/code-task/airports?q=' + airportName;
+      getJSON(path, callback);
+  },
+
+  // function to get an array of airlines from the API
+  getAirlinesFromAPI: function (callback) {
+      var path = '/code-task/airlines';
+      getJSON(path, callback);
+  },
+
+  // function to get an array of flights from the API
+  getFlightsFromAPI: function (parameters, callback) {  
+      var path = '/code-task/flight_search/' + parameters.airline + 
+          '?date=' + parameters.date +
+          '&from=' + parameters.from +
+          '&to=' + parameters.to;
+      getJSON(path, callback);
+  }
+
+};
+
+
 // generic fetch function to retrieve JSON as JS Object from Locomote code-task API
 function getJSON(path, callback) {
     
@@ -35,23 +61,3 @@ function getJSON(path, callback) {
     req.end();
 }
 
-// function to get an array of airports from the API
-exports.getAirportsFromAPI = function (airportName, callback) {
-    var path = '/code-task/airports?q=' + airportName;
-    getJSON(path, callback);
-}
-
-// function to get an array of airlines from the API
-exports.getAirlinesFromAPI = function (callback) {
-    var path = '/code-task/airlines';
-    getJSON(path, callback);
-}
-
-// function to get an array of flights from the API
-exports.getFlightsFromAPI = function (parameters, callback) {  
-    var path = '/code-task/flight_search/' + parameters.airline + 
-        '?date=' + parameters.date +
-        '&from=' + parameters.from +
-        '&to=' + parameters.to;
-    getJSON(path, callback);
-}

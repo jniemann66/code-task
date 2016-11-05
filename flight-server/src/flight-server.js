@@ -13,12 +13,14 @@ app.use(morgan('dev')); // for logging http requests
 
 let server;
 
-exports.start = function start(port, callback) {
-  server = app.listen(port, callback);
-};
+module.exports = {
+  start: function start(port, callback) {
+    server = app.listen(port, callback);
+  },
 
-exports.stop = function stop(callback) {
-  server.close(callback);
+  stop: function stop(callback) {
+    server.close(callback);
+  }
 };
 
 // serve the index.html entry page
