@@ -129,7 +129,7 @@ The search results are subsequently displayed in a table, and the user has the o
 
 In addition to the date entered by the user, 4 additional dates are also shown in the results (+/- 2 days from the entered date). These can be viewed by selecting tabs.
 
-![](flight-search/images/screenshots/OSX10.7-firefox48.PNG)
+![](docs/images/screenshots/OSX10.7-firefox48.PNG)
 *above: flight-search running on Firefox v48 on Macintosh OSX 10.7*
 
 
@@ -158,7 +158,7 @@ The end-user should expect to be able to use the app on a variety of different d
 More detailed information on the individual components (back-end server and front-end app) can be found in the README.md files of their respective subfolders:
 
 flight-server:
-[README-flight-server](docs/flight-server/README.md)
+[README-flight-server](docs/README-flight-server.md)
 
 
 
