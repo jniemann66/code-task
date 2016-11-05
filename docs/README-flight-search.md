@@ -8,12 +8,13 @@
 It allows the user to search for one-way airline flights by selecting an origin and destination, and a desired travel date.
 
 ##Live Demo
+for convenience, a live demonstration has been set up here:
 [http://52.62.255.103:9999](http://52.62.255.103:9999 "Live Demo")
 
 ##Description
 
 
-Upon typing two or more characters into the origin or destination input fields, the app will initiate an AJAX request to the server to populate the drop-down choices for cities and airports. Valid choices must always include a 3-letter international airport code in parentheses.
+Upon typing two or more characters into the origin or destination input fields, the app will initiate an AJAX request to the server to populate the drop-down choices for cities and airports. Valid choices must always include a 3-letter [IATA](https://en.wikipedia.org/wiki/International_Air_Transport_Association_airport_code) code in parentheses.
 
 The user must select a date for the search, which cannot be in the past.
 
@@ -37,7 +38,8 @@ after which the results are considered to have expired, and a full search will b
 
 ##Coding and methodology
 
-The app is written in plain javascript and doesn't require a transpile / build phase
+The app is written in plain (ES5) javascript and doesn't require a transpile / build phase. 
+The Javascript entry point for the app is the **flight-search.js** file in the directory **flight-server/src/flight-search/scripts**
 
 libraries used:
 
@@ -48,27 +50,14 @@ libraries used:
 
 The main issues encountered in developing this front-end app have centered around the availability of the html5 elements **datalist** and **input type="date"** on various browsers. Although part of the html5 standard, these features are still missing on several browsers. In order to address this sorry state of affairs, the jQueryUI components "autocomplete" and "datepicker" were employed. A large amount of time was devoted to cross-browser-testing.
 
-For details on the results of testing across various browsers, please refer to the pdf document [Browser-Notes-Observations.pdf](./Browser-Notes-Observations.pdf "Browser-Notes-Observations.pdf") included in this package.
-
 ##configuring the back-end server address
 
-There is a variable at the top of the flight-search.js file which has the address of the back-end server:
+There is a variable at the top of the **flight-search.js** file which has the address of the back-end server:
 
-	var serverAddress = 'http://localhost:9000'; // local dev server
+	var serverAddress = 'http://localhost:3000'; // for AJAX requests
 
 Please ensure that this points to the node server back-end.
 
-
-##Serving flight-search
-for development purposes, flight search can be launched directly from the local computer's filesystem by opening **index.html** in the browser. However, this is not recommended. Testing should be done from an actual http server.
-
-Of course, any web server can be used. 
-
-For example, to serve the page on port 3000 using the node server '[http-server](https://www.npmjs.com/package/http-server)':
-
-**npm install http-server -g**
-
-**cd flight-search && http-server -p 3000**
 
 ##Additional considerations and to-do's
 
