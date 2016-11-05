@@ -87,16 +87,16 @@ The end-user connects their browser to the front-end server on port 3000
 
 The startup process for the back-end server incorporates a suite of tests before the service starts. All of the tests are expected to pass. Failure to pass all tests indicates a problem.
 
-Additionally, the test suite can be run at any time from the **flight-server** directory, by running the command:
+(Note: the test suite can be run at any time from the **flight-server** directory, by running the command:
 
 **npm test**
 
-However, it will not work if there is an instance of the back-end server already running, as a conflict will arise from both instances trying to bind to port 3000
+However, it will NOT work if there is an instance of the back-end server already running, as a conflict will arise from both instances trying to bind to port 3000)
 
 
 ## testing the app in a browser
 
-Once both the front-end server and back-end server are running,
+Once both the back-end server is running,
 enter the address of the front-end server in your browser:
 
 **http://localhost:3000**
