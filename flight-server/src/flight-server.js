@@ -23,11 +23,13 @@ module.exports = {
   }
 };
 
-// serve the index.html entry page
 
+// Serve the static files for the flight-search app:
+// Note: it is not necessary to explicitly send 'index.html' within  app.get('/')
+// express.static() will automatically send index.html because its index option is set to
+// 'index.html' by default (this behaviour is specified in the API reference)
 
-// serve the static files for the flight-search app:
-app.use(express.static(path.join(__dirname,'flight-search')));
+app.use(express.static(path.join(__dirname,'flight-search'))); // serve all files in the /flight-search subfolder
 
 // airport search
 // usage: /airports?q=xxx
