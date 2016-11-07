@@ -150,9 +150,7 @@ The end-user should expect to be able to use the app on a variety of different d
 * Back-end logging: **[morgan](https://github.com/expressjs/morgan)** - provides basic logging of incoming requests and their eventual results (logging is certainly one area that could be expanded in this project - separate logs for errors vs access, and log rotations could be implemented)
 
 * Front-end: **[moment.js](http://momentjs.com/)** - utility library for handling dates and times
-* Front-end: **[Bootstrap 3](http://getbootstrap.com/)** - used to provide form field validation feedback (red/green), button styling, and re
-* 
-* sponsive design
+* Front-end: **[Bootstrap 3](http://getbootstrap.com/)** - used to provide form field validation feedback (red/green), button styling, and responsive design
 * Front-end: **[jQuery](https://jquery.com/)** - used for selecting various DOM elements and a few event handlers
 * Front-end: **[jQueryUI](http://jqueryui.com/)** (custom build with only datepicker and autocomplete) - used to polyfill html5 date and datalist on broswers that don't have them
   
