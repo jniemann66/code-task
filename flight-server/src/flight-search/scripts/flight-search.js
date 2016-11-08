@@ -4,7 +4,8 @@
 
   // constants:
 
-  var serverAddress = 'http://localhost:3000'; // for AJAX requests
+  var serverAddress = 'http://localhost:3000'; // for AJAX requests (hard-coded)
+  // var serverAddress = 'http://' + window.location.host; // auto-detect
 
   var searchExpiry = 5; // maximum age for search results in minutes. Sorting will trigger re-search if results have expired.
 
