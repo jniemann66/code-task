@@ -64,7 +64,7 @@ Please ensure that this points to the node server back-end.
 ##Additional considerations and to-do's
 
 * Flight search is currently only one-way. It would be desirable to have it accomodate **return flights**
-* formatting for results on small screens (phones) still needs some tweaking
+* Formatting for results on small screens (phones) still needs some tweaking
 * Scripted testing using Selenium or Phantom.js should be implemented
 * There are still a couple of issues in safari, as noted in the pdf referenced above
 * A callout showing the cheapest flight might be very helpful for the user

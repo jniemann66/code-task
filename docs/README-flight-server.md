@@ -124,6 +124,7 @@ Locomote API syntax has a single airline as a URL parameter, followed by from, t
 * Consider adding a build process (webpack) with minification etc
 * use behind reverse proxy ? (Nginx)
 * consider streaming results back to browser, to improve user experience
+* consider deploying with docker
 
 
 
