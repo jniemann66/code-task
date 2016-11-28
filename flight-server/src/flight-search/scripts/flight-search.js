@@ -29,15 +29,11 @@
     sessionStorage.setItem('lastResultDirty', JSON.stringify(true));
 
     // initialise event listeners:
-
-    // DOM events:
-    document.getElementById("from").addEventListener("keyup", autocompleteAirport);
-    document.getElementById("from").addEventListener("change", handleAirportChange);
-    document.getElementById("to").addEventListener("keyup", autocompleteAirport);
-    document.getElementById("to").addEventListener("change", handleAirportChange);
-    document.getElementById("search").addEventListener("click", search);
-
-    // jQuery events:
+    $("#from").on("keyup", autocompleteAirport);
+    $("#from").on("change", handleAirportChange);
+    $("#to").on("keyup", autocompleteAirport);
+    $("#to").on("change", handleAirportChange);
+    $("#search").on("click", search);
     $("#date").on("change", handleDateChange);
     $(".sort-buttons").click(onClickSort);
     $("#resultsbox").on( "click", "button", onClickResult);
