@@ -2,11 +2,9 @@
 
 (function() {
 
+  var serverAddress = 'http://' + window.location.host; // auto-detect
+
   // constants:
-
-  var serverAddress = 'http://localhost:3000'; // for AJAX requests (hard-coded)
-  // var serverAddress = 'http://' + window.location.host; // auto-detect
-
   var searchExpiry = 5; // maximum age for search results in minutes. Sorting will trigger re-search if results have expired.
 
   // flags:
@@ -30,15 +28,14 @@
     sessionStorage.setItem('lastResultDirty', JSON.stringify(true));
 
     // initialise event listeners:
-    $("#from").on("keyup", autocompleteAirport);
+    $("#from").on("keyup", handleAirportKeyup);
     $("#from").on("change", handleAirportChange);
-    $("#to").on("keyup", autocompleteAirport);
+    $("#to").on("keyup", handleAirportKeyup);
     $("#to").on("change", handleAirportChange);
     $("#search").on("click", search);
     $("#date").on("change", handleDateChange);
     $(".sort-buttons").click(onClickSort);
     $("#resultsbox").on( "click", "button", onClickResult);
-
   }
 
   // installs a jQueryUI datepicker in place of <input type="date">:
@@ -59,45 +56,37 @@
 
   // event handlers ////
 
-  // does an AJAX search and populates dropdown selections based on what user typed: 
-  function autocompleteAirport(evt) {
-    var text = evt.target.value;
-    if(text.length >= 2 ) { // do an airport lookup if user has entered 2 or more characters
-      getJSON('/airports?q=' + text, function(airportList) {
-        if(airportList) {
+  function handleAirportKeyup(evt) {
+    var txt = evt.target.value;
+    
+    if(txt.length < 2)
+      return; // don't do anything unless 2 or more characters
 
-          // build auto-complete sources:
-          var acSources = airportList.map(function(airport) {
-            return airport.cityName +', ' + airport.countryName + ' (' + airport.airportCode + ')';
-          });
+    getAirportList(txt, function(airportList) {
+      if(airportList) {
+        
+        // build dropdown list:
+        var acSources = airportList.map(function(airport) {
+          return airport.cityName +', ' + airport.countryName + ' (' + airport.airportCode + ')';
+        });
 
-          if(hasDatalist){ // html5 <datalist>
-            var datalist = document.getElementById(evt.target.getAttribute('list')); // get <datalist> asscociated with this input
-            datalist.innerHTML='';
-            acSources.forEach(function(src) {
-              var option = document.createElement('option');
-              option.value = src;
-              datalist.appendChild(option);
-            });
-          } else { // jQueryUI autocomplete
-            $(evt.target).autocomplete({source: acSources});
-          }
-        }
-      });
-    }
+        // populate drop-down options
+        populateDatalist(evt.target, acSources)
+      }
+    });
   }
+
+ 
 
   function handleAirportChange(evt) {
     // invalidate any stored results:
     sessionStorage.setItem('lastResultDirty', JSON.stringify(true));
-
     validateAirportInput(evt);
   }
 
   function handleDateChange(evt) {
     // invalidate any stored results:
     sessionStorage.setItem('lastResultDirty', JSON.stringify(true));
-
     validateDateInput(evt);
   }
 
@@ -204,6 +193,23 @@
   }
 
   // UI manipulation functions ////
+
+  // populates html5 datalist if supported by browser, otherwise uses jQueryUI autocomplete
+  // el: element
+  // acSources: array of dropdown items
+  function populateDatalist(el, acSources) {
+    if(hasDatalist) { // html5 <datalist>
+      var datalist = document.getElementById(el.getAttribute('list')); // get <datalist> asscociated with this input
+      datalist.innerHTML='';
+      acSources.forEach(function(src) {
+        var option = document.createElement('option');
+        option.value = src;
+        datalist.appendChild(option);
+      });
+    } else { // jQueryUI autocomplete
+      $(el).autocomplete({source: acSources});
+    }
+  }
 
   // starts search animation to indicate to user that search is underway:
   function startSearchAnimation() {
@@ -352,6 +358,56 @@
     });
   }
 
+  
+
+  function sortFlights(flights, criterion, descending) {
+    switch(criterion) {
+    
+      case 'airline':
+        return flights.sort(function(a, b) {
+          return descending ? 
+            b.airline.name.localeCompare(a.airline.name) : 
+            a.airline.name.localeCompare(b.airline.name);
+        });
+      case 'departure-time':
+        return flights.sort(function(a, b) {
+          return descending ? 
+            new Date(b.start.dateTime) - new Date(a.start.dateTime) : 
+            new Date(a.start.dateTime) - new Date(b.start.dateTime);
+        
+        });
+      case 'duration':
+        return flights.sort(function(a, b) {
+          return descending ? b.durationMin - a.durationMin : a.durationMin - b.durationMin;
+        });
+      case 'price':
+        return flights.sort(function(a, b) {
+          return descending ? b.price - a.price : a.price - b.price;
+        });
+      default:
+        return flights.sort(function(a, b) {
+          return 0; // no sort
+        });
+    }
+  }
+
+  // retrieval functions ////
+
+  // generic AJAX request to return a javascript object, given a path relative to serverAddress:
+  function getJSON(path, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', encodeURI(serverAddress + path));
+    xhr.onload = function() {
+      callback(xhr.status === 200 ? JSON.parse(xhr.responseText) : null);
+    };
+    xhr.send();
+  }
+
+  // retrieves list of airports from server, matching a given text string:
+  function getAirportList(txt, callback) {
+     getJSON('/airports?q=' + txt, callback); 
+  }
+
   // sends flight-search query to server
   // from, to = airports
   // dates = array of dates
@@ -387,37 +443,6 @@
     });
   }
 
-  function sortFlights(flights, criterion, descending) {
-    switch(criterion) {
-    
-      case 'airline':
-        return flights.sort(function(a, b) {
-          return descending ? 
-            b.airline.name.localeCompare(a.airline.name) : 
-            a.airline.name.localeCompare(b.airline.name);
-        });
-      case 'departure-time':
-        return flights.sort(function(a, b) {
-          return descending ? 
-            new Date(b.start.dateTime) - new Date(a.start.dateTime) : 
-            new Date(a.start.dateTime) - new Date(b.start.dateTime);
-        
-        });
-      case 'duration':
-        return flights.sort(function(a, b) {
-          return descending ? b.durationMin - a.durationMin : a.durationMin - b.durationMin;
-        });
-      case 'price':
-        return flights.sort(function(a, b) {
-          return descending ? b.price - a.price : a.price - b.price;
-        });
-      default:
-        return flights.sort(function(a, b) {
-          return 0; // no sort
-        });
-    }
-  }
-
   // Utility functions ////
 
   // formats airline name, start -> finish, flight numbers as html:
@@ -447,14 +472,6 @@
     return ('<p>' + hrs + ' hours, ' + mins + ' minutes' + '</p>');
   }
 
-  // generic AJAX request to return a javascript object, given a path relative to serverAddress:
-  function getJSON(path, callback) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', encodeURI(serverAddress + path));
-    xhr.onload = function() {
-      callback(xhr.status === 200 ? JSON.parse(xhr.responseText) : null);
-    };
-    xhr.send();
-  }
+
 
 })();
