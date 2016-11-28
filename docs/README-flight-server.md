@@ -122,6 +122,9 @@ Locomote API syntax has a single airline as a URL parameter, followed by from, t
 * need to refine logging ([Winston](https://github.com/winstonjs/winston) / [Morgan](https://github.com/expressjs/morgan) etc)
 * In production environments, needs a process manager, such as [pm2](http://pm2.keymetrics.io/)
 * Consider adding a build process (webpack) with minification etc
+* use behind reverse proxy ? (Nginx)
+* consider streaming results back to browser, to improve user experience
+* consider deploying with docker
 
 
 
