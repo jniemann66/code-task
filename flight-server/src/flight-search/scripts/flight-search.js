@@ -2,7 +2,7 @@
 
 (function() {
 
-  var serverAddress = 'http://' + window.location.host; // auto-detect
+  var serverAddress = 'http://' + window.location.host; // obtain address of server of this page !
 
   // constants:
   var searchExpiry = 5; // maximum age for search results in minutes. Sorting will trigger re-search if results have expired.
@@ -32,26 +32,10 @@
     $("#from").on("change", handleAirportChange);
     $("#to").on("keyup", handleAirportKeyup);
     $("#to").on("change", handleAirportChange);
-    $("#search").on("click", search);
     $("#date").on("change", handleDateChange);
-    $(".sort-buttons").click(onClickSort);
-    $("#resultsbox").on( "click", "button", onClickResult);
-  }
-
-  // installs a jQueryUI datepicker in place of <input type="date">:
-  function installDatePicker(displayFormat) {
-    $('input[type=date]').each(function (index, element) {
-      var hiddenDate = $(this).clone().insertAfter(this).hide(); // create hidden date field that will contain the iso 8601 date format
-      $(this).attr('id',$(this).attr('id')+'-displayed'); // append '-displayed' to the id of the date field which the user sees
-      $(this).datepicker({ 
-        dateFormat: 'dd-M-yy', 
-        altField: '#' + hiddenDate.attr('id'), 
-        altFormat: 'yy-mm-dd', // full-date as specified in RFC3339 (note: 'yy' is actually 4-digit year in datepicker)
-        onSelect: function() { 
-          hiddenDate.trigger("change"); 
-        } // make datepicker fire a change event when underlying input changed (doesn't do this by default)
-      }); 
-    });
+    $("#search").on("click", handleSearchClick);
+    $(".sort-buttons").click(handleSortClick);
+    $("#resultsbox").on( "click", "button", handleResultClick);
   }
 
   // event handlers ////
@@ -76,58 +60,71 @@
     });
   }
 
- 
-
   function handleAirportChange(evt) {
     // invalidate any stored results:
     sessionStorage.setItem('lastResultDirty', JSON.stringify(true));
-    validateAirportInput(evt);
+    validateAirportInput(evt.target);
   }
 
   function handleDateChange(evt) {
     // invalidate any stored results:
     sessionStorage.setItem('lastResultDirty', JSON.stringify(true));
-    validateDateInput(evt);
+    validateDateInput(evt.target);
   }
 
-  // validation functions ////
+  // performs a flight search, based on search criteria entered by user
+  function handleSearchClick() {
+    clearFlights();
+    var fromVal = document.getElementById('from').value;
+    var toVal = document.getElementById('to').value;
 
-  // validates the airport (value must contain 3-letter airport code in parentheses),
-  // and sets bootstrap form-control classes accordingly
-  // evt = event that triggered validation
-
-  function validateAirportInput(evt) {
-
-  if(evt.target.value.length===0) {
-      $(evt.target).parent().removeClass('has-error has-success');
-    } else if(/\(([A-Z]*)\)/.test(evt.target.value)) { // found 3-letter airport code in parentheses
-      $(evt.target).parent().removeClass('has-error').addClass('has-success');
-    } else {
-      $(evt.target).parent().removeClass('has-success').addClass('has-error');
+    if(!fromVal || !toVal) {
+      return;
     }
-  }
-
-  // validates date input (date cannot be in the past)
-  // and sets bootstrap form-control classes accordingly
-  // evt = event that triggered validation
-
-  function validateDateInput(evt) {
-
-    var today = moment();
+    var from = fromVal.match( /\(([A-Z]*)\)/ )[1]; // match stuff inside parentheses, and capture the stuff inside parentheses
+    var to = toVal.match( /\(([A-Z]*)\)/ )[1];
     var targetDate = moment(document.getElementById("date").value);
+    if(!targetDate.isValid()) {
+      return; // invalid date
+    }
+
+    var today = moment().format('YYYY-MM-DD');
     var diff = moment.duration(targetDate.diff(today)).asDays(); // determine difference between target date and today
     
-    if(diff < 0) {
-      $(evt.target).parent().removeClass('has-success').addClass('has-error');
-    } else {
-      $(evt.target).parent().removeClass('has-error').addClass('has-success');
+    if(diff < 0) { 
+      alert("Sorry - can't book flights in the past !");
+      return;
     }
+    
+    var dateRangeOffset = diff < 2 ? -diff : -2; // ensure that date range never extends into the past 
+
+    // create a range of 5 dates, surrounding targetDate:
+    var dates = [];
+    for(var i = dateRangeOffset; i < dateRangeOffset + 5; i++) {
+      dates.push(moment(targetDate).add(i, 'day').format('YYYY-MM-DD'));
+    }
+
+    // indicate busy status to user:
+    var body = document.getElementById("root");
+    startSearchAnimation();
+    body.style.cursor="progress";
+
+    getFlights(from, to, dates, function(flights) {
+      if(flights) {
+        var sortMode = $("input[name='sort-mode']:checked").val();
+        var descending = !!document.getElementById('descending').checked;
+        var flightsSorted = sortFlights(flights, sortMode, descending);
+        showFlights(flightsSorted, dates, 1-dateRangeOffset);
+      }
+      body.style.cursor="default";
+      stopSearchAnimation();
+    });
   }
 
   // Handles sorting, upon user clicking one of the sort buttons. 
   // Triggers full search if stored results are dirty or expired
 
-  function onClickSort(evt) {
+  function handleSortClick(evt) {
 
     var lastDates = JSON.parse(sessionStorage.getItem('lastDates'));
     var lastResult = JSON.parse(sessionStorage.getItem('lastResult'));
@@ -137,7 +134,7 @@
     var age = moment.duration(moment().diff(moment(lastResultTime))).asMinutes();
 
     if(age > searchExpiry || lastResultDirty) { 
-      search(); // search again
+      handleSearchClick(); // search again
     } else { // stored search ok - just sort it and display it
       clearFlights();
       var selectedDayTab = Number($("input[name='tabs']:checked").val()); // remember selected tab, for re-display
@@ -149,7 +146,7 @@
   }
 
   // function to handle selection of a flight:
-  function onClickResult(evt) {
+  function handleResultClick(evt) {
 
     // Note: this is just a stub. In real life, this would initiate an approval process ... 
     // probably starting with with a relevant ajax query to server
@@ -190,6 +187,41 @@
       '</div><div class="col-sm-1"></div></div></body></html>';
 
     newPage.document.write(confirmationHTML);
+  }
+
+
+  // validation functions ////
+
+  // validates the airport (value must contain 3-letter airport code in parentheses),
+  // and sets bootstrap form-control classes accordingly
+  // el = element to be validated
+
+  function validateAirportInput(el) {
+
+  if(el.value.length===0) {
+      $(el).parent().removeClass('has-error has-success');
+    } else if(/\(([A-Z]*)\)/.test(el.value)) { // found 3-letter airport code in parentheses
+      $(el).parent().removeClass('has-error').addClass('has-success');
+    } else {
+      $(el).parent().removeClass('has-success').addClass('has-error');
+    }
+  }
+
+  // validates date input (date cannot be in the past)
+  // and sets bootstrap form-control classes accordingly
+  // el = element to be validated
+
+  function validateDateInput(el) {
+
+    var today = moment();
+    var targetDate = moment(document.getElementById("date").value);
+    var diff = moment.duration(targetDate.diff(today)).asDays(); // determine difference between target date and today
+    
+    if(diff < 0) {
+      $(el).parent().removeClass('has-success').addClass('has-error');
+    } else {
+      $(el).parent().removeClass('has-error').addClass('has-success');
+    }
   }
 
   // UI manipulation functions ////
@@ -303,62 +335,23 @@
     targetDateTab.checked = true;
   } 
 
-  // search and sort functions ////
-
-  // performs a flight search, based on search criteria entered by user
-  function search() {
-    clearFlights();
-    var fromVal = document.getElementById('from').value;
-    var toVal = document.getElementById('to').value;
-
-    if(!fromVal || !toVal) {
-      return;
-    }
-
-    var from = fromVal.match( /\(([A-Z]*)\)/ )[1]; // match stuff inside parentheses, and capture the stuff inside parentheses
-    var to = toVal.match( /\(([A-Z]*)\)/ )[1];
-    
-    var targetDate = moment(document.getElementById("date").value);
-     
-    if(!targetDate.isValid()) {
-      return; // invalid date
-    }
-
-    var today = moment().format('YYYY-MM-DD');
-    
-    var diff = moment.duration(targetDate.diff(today)).asDays(); // determine difference between target date and today
-    
-    if(diff < 0) { 
-      alert("Sorry - can't book flights in the past !");
-      return;
-    }
-    
-    var dateRangeOffset = diff < 2 ? -diff : -2; // ensure that date range never extends into the past 
-
-    // create a range of 5 dates, surrounding targetDate:
-    var dates = [];
-    for(var i = dateRangeOffset; i < dateRangeOffset + 5; i++) {
-      dates.push(moment(targetDate).add(i, 'day').format('YYYY-MM-DD'));
-    }
-
-    // indicate busy status to user:
-    var body = document.getElementById("root");
-    startSearchAnimation();
-    body.style.cursor="progress";
-
-    getFlights(from, to, dates, function(flights) {
-      if(flights) {
-        var sortMode = $("input[name='sort-mode']:checked").val();
-        var descending = !!document.getElementById('descending').checked;
-        var flightsSorted = sortFlights(flights, sortMode, descending);
-        showFlights(flightsSorted, dates, 1-dateRangeOffset);
-      }
-      body.style.cursor="default";
-      stopSearchAnimation();
+  // installs a jQueryUI datepicker in place of <input type="date">:
+  function installDatePicker(displayFormat) {
+    $('input[type=date]').each(function (index, element) {
+      var hiddenDate = $(this).clone().insertAfter(this).hide(); // create hidden date field that will contain the iso 8601 date format
+      $(this).attr('id',$(this).attr('id')+'-displayed'); // append '-displayed' to the id of the date field which the user sees
+      $(this).datepicker({ 
+        dateFormat: 'dd-M-yy', 
+        altField: '#' + hiddenDate.attr('id'), 
+        altFormat: 'yy-mm-dd', // full-date as specified in RFC3339 (note: 'yy' is actually 4-digit year in datepicker)
+        onSelect: function() { 
+          hiddenDate.trigger("change"); 
+        } // make datepicker fire a change event when underlying input changed (doesn't do this by default)
+      }); 
     });
   }
 
-  
+  // sort functions ////
 
   function sortFlights(flights, criterion, descending) {
     switch(criterion) {
@@ -408,7 +401,7 @@
      getJSON('/airports?q=' + txt, callback); 
   }
 
-  // sends flight-search query to server
+  // retrieves list of flights from server:
   // from, to = airports
   // dates = array of dates
   // callback = function to call on completion
@@ -471,7 +464,5 @@
     var mins = minutes % 60;
     return ('<p>' + hrs + ' hours, ' + mins + ' minutes' + '</p>');
   }
-
-
 
 })();
