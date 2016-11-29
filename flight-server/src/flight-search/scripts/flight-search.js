@@ -71,54 +71,21 @@
     sessionStorage.setItem('lastResultDirty', JSON.stringify(true));
     validateDateInput(evt.target);
   }
-
-  // performs a flight search, based on search criteria entered by user
+  
   function handleSearchClick() {
     clearFlights();
-    var fromVal = document.getElementById('from').value;
-    var toVal = document.getElementById('to').value;
-
-    if(!fromVal || !toVal) {
-      return;
-    }
-    var from = fromVal.match( /\(([A-Z]*)\)/ )[1]; // match stuff inside parentheses, and capture the stuff inside parentheses
-    var to = toVal.match( /\(([A-Z]*)\)/ )[1];
-    var targetDate = moment(document.getElementById("date").value);
-    if(!targetDate.isValid()) {
-      return; // invalid date
-    }
-
-    var today = moment().format('YYYY-MM-DD');
-    var diff = moment.duration(targetDate.diff(today)).asDays(); // determine difference between target date and today
     
-    if(diff < 0) { 
-      alert("Sorry - can't book flights in the past !");
-      return;
-    }
-    
-    var dateRangeOffset = diff < 2 ? -diff : -2; // ensure that date range never extends into the past 
-
-    // create a range of 5 dates, surrounding targetDate:
-    var dates = [];
-    for(var i = dateRangeOffset; i < dateRangeOffset + 5; i++) {
-      dates.push(moment(targetDate).add(i, 'day').format('YYYY-MM-DD'));
-    }
-
     // indicate busy status to user:
     var body = document.getElementById("root");
-    startSearchAnimation();
     body.style.cursor="progress";
-
-    getFlights(from, to, dates, function(flights) {
-      if(flights) {
-        var sortMode = $("input[name='sort-mode']:checked").val();
-        var descending = !!document.getElementById('descending').checked;
-        var flightsSorted = sortFlights(flights, sortMode, descending);
-        showFlights(flightsSorted, dates, 1-dateRangeOffset);
-      }
-      body.style.cursor="default";
+    startSearchAnimation();
+    
+    performSearch(function() {
+      // undo busy status:
       stopSearchAnimation();
+      body.style.cursor="default";
     });
+
   }
 
   // Handles sorting, upon user clicking one of the sort buttons. 
@@ -147,12 +114,9 @@
 
   // function to handle selection of a flight:
   function handleResultClick(evt) {
-
     var id = $(event.target).attr("id");
     showFlightConfirmation(id);
-
   }
-
 
   // validation functions ////
 
@@ -357,7 +321,50 @@
     });
   }
 
-  // sort functions ////
+  // search and sort functions ////
+
+  // performs a flight search, based on search criteria entered by user
+  // calls callback(true) if search returned results, or callback(false) if no results
+
+  function performSearch(callback) {
+
+    var fromVal = document.getElementById('from').value;
+    var toVal = document.getElementById('to').value;
+    var targetDate = moment(document.getElementById("date").value);
+    var today = moment().format('YYYY-MM-DD');
+    var diff = moment.duration(targetDate.diff(today)).asDays(); // determine difference between target date and today
+
+    if(diff < 0) { 
+      alert("Sorry - can't book flights in the past !");
+      return callback(false);
+    }
+
+    if(!fromVal || !toVal || !targetDate.isValid()) {
+      return callback(false);
+    }
+
+    var from = fromVal.match( /\(([A-Z]*)\)/ )[1]; // capture stuff inside parentheses
+    var to = toVal.match( /\(([A-Z]*)\)/ )[1];
+    var dateRangeOffset = diff < 2 ? -diff : -2; // ensure that date range never extends into the past 
+
+    // create a range of 5 dates, surrounding targetDate:
+    var dates = [];
+    for(var i = dateRangeOffset; i < dateRangeOffset + 5; i++) {
+      dates.push(moment(targetDate).add(i, 'day').format('YYYY-MM-DD'));
+    }
+
+    getFlights(from, to, dates, function(flights) {
+      if(flights) {
+        var sortMode = $("input[name='sort-mode']:checked").val();
+        var descending = !!document.getElementById('descending').checked;
+        var flightsSorted = sortFlights(flights, sortMode, descending);
+        showFlights(flightsSorted, dates, 1-dateRangeOffset);
+        callback(true);
+      } else {
+        callback(false);
+      }
+    });
+  }
 
   function sortFlights(flights, criterion, descending) {
     switch(criterion) {
