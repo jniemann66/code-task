@@ -148,45 +148,9 @@
   // function to handle selection of a flight:
   function handleResultClick(evt) {
 
-    // Note: this is just a stub. In real life, this would initiate an approval process ... 
-    // probably starting with with a relevant ajax query to server
-    
-    var id = $(evt.target).attr("id");
-    var lastResult = JSON.parse(sessionStorage.getItem('lastResult'));
-    var lastResultTime = JSON.parse(sessionStorage.getItem('lastResultTime'));
-    var lastResultDirty = JSON.parse(sessionStorage.getItem('lastResultDirty'));
-    var age = moment.duration(moment().diff(moment(lastResultTime))).asMinutes();
+    var id = $(event.target).attr("id");
+    showFlightConfirmation(id);
 
-    if(age > searchExpiry || lastResultDirty) {
-      alert('Results have expired, due to inactivity.\nPlease refresh your search');
-      return;
-    }
-    
-    var selectedFlight = lastResult.filter(function(flight){
-      return flight.key === id;
-    })[0];
-   
-    var newPage = window.open("");
-    
-    var confirmationHTML = '<html><head>' +
-      '<meta content="width=device-width, initial-scale=1" name="viewport">' +
-      '<link rel="stylesheet" type="text/css" href="../styles/confirmation.css">' +
-      '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">' + 
-      '<title>Flight Details</title></head>' +
-
-      '<body><div class="container-fluid"><div class="col-sm-1"></div>' +
-      '<div  col-sm-10"><h2 id="main-heading">Confirm Flight Details</h2><table>' + 
-      '<thead><th colspan="2">Flight details:</th></thead>' +
-      '<tr><td>Airline:</td><td>' + selectedFlight.airline.name + '</td></tr>' + 
-      '<tr><td>Flight Number:</td><td>' + selectedFlight.flightNum + '</td></tr>' +
-      '<tr><td>Origin:</td><td>' + formatDateForResults(selectedFlight.start.dateTime) + '<p>' + selectedFlight.start.airportCode + '</p>' + '</td></tr>' +
-      '<tr><td>Destination:</td><td>' + formatDateForResults(selectedFlight.finish.dateTime) + '<p>' + selectedFlight.finish.airportCode + '</p>' + '</td></tr>' +
-      '<tr><td>Price:</td><td>' + 'AU $' + selectedFlight.price + '</td></tr>' + 
-      '</table>' + 
-      '<p><button class="btn-success" type="button" onclick="alert(\'Flight submitted for approval !\')" name="confirm">confirm</button></p>' + 
-      '</div><div class="col-sm-1"></div></div></body></html>';
-
-    newPage.document.write(confirmationHTML);
   }
 
 
@@ -334,6 +298,48 @@
     targetDateTab = document.getElementById("tab" + selectedDay);
     targetDateTab.checked = true;
   } 
+
+  function showFlightConfirmation(id) {
+    
+    // Note: this is just a stub. In real life, this would initiate an approval process ... 
+    // probably starting with with a relevant ajax query to server
+    
+    var lastResult = JSON.parse(sessionStorage.getItem('lastResult'));
+    var lastResultTime = JSON.parse(sessionStorage.getItem('lastResultTime'));
+    var lastResultDirty = JSON.parse(sessionStorage.getItem('lastResultDirty'));
+    var age = moment.duration(moment().diff(moment(lastResultTime))).asMinutes();
+
+    if(age > searchExpiry || lastResultDirty) {
+      alert('Results have expired, due to inactivity.\nPlease refresh your search');
+      return;
+    }
+    
+    var selectedFlight = lastResult.filter(function(flight){
+      return flight.key === id;
+    })[0];
+   
+    var newPage = window.open("");
+    
+    var confirmationHTML = '<html><head>' +
+      '<meta content="width=device-width, initial-scale=1" name="viewport">' +
+      '<link rel="stylesheet" type="text/css" href="../styles/confirmation.css">' +
+      '<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">' + 
+      '<title>Flight Details</title></head>' +
+
+      '<body><div class="container-fluid"><div class="col-sm-1"></div>' +
+      '<div  col-sm-10"><h2 id="main-heading">Confirm Flight Details</h2><table>' + 
+      '<thead><th colspan="2">Flight details:</th></thead>' +
+      '<tr><td>Airline:</td><td>' + selectedFlight.airline.name + '</td></tr>' + 
+      '<tr><td>Flight Number:</td><td>' + selectedFlight.flightNum + '</td></tr>' +
+      '<tr><td>Origin:</td><td>' + formatDateForResults(selectedFlight.start.dateTime) + '<p>' + selectedFlight.start.airportCode + '</p>' + '</td></tr>' +
+      '<tr><td>Destination:</td><td>' + formatDateForResults(selectedFlight.finish.dateTime) + '<p>' + selectedFlight.finish.airportCode + '</p>' + '</td></tr>' +
+      '<tr><td>Price:</td><td>' + 'AU $' + selectedFlight.price + '</td></tr>' + 
+      '</table>' + 
+      '<p><button class="btn-success" type="button" onclick="alert(\'Flight submitted for approval !\')" name="confirm">confirm</button></p>' + 
+      '</div><div class="col-sm-1"></div></div></body></html>';
+
+    newPage.document.write(confirmationHTML);
+  }
 
   // installs a jQueryUI datepicker in place of <input type="date">:
   function installDatePicker(displayFormat) {
