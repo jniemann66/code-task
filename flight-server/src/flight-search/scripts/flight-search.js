@@ -215,7 +215,7 @@
 
       // filter list for specific day:
       var flightsForDay = flights.filter(function(flight) {
-      return moment(flight.start.dateTime).format('YYYY-MM-DD') === dates[day-1];
+        return moment(flight.start.dateTime).format('YYYY-MM-DD') === dates[day-1];
       });
       
       // generate table:
